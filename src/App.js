@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Header from "./components/Header/Header.js";
 import TodoForm from "./components/Form/TodoForm.js";
+import TodoList from './components/TodoList/TodoList.js';
 import uuidv1 from 'uuid/v1';
 
 class App extends Component {
@@ -22,12 +23,14 @@ class App extends Component {
       todos: {...this.state.todos, [id]: newTodo}
     })
     input.value = ''
+  
   };
   render() {
     return (
       <div className="App">
         <Header title={"Todos"} />
         <TodoForm onSubmit={this.addTodo}/>
+        <TodoList todos={Object.values(this.state.todos)}></TodoList>
       </div>
     );
   }
