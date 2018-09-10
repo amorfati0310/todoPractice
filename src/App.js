@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "./components/Header/Header.js";
 import TodoForm from "./components/Form/TodoForm.js";
 import TodoList from './components/TodoList/TodoList.js';
+import SetButton from './components/SetButton/SetButton.js';
 import uuidv1 from 'uuid/v1';
 
 const AppWrapper = styled.div`
@@ -56,12 +57,22 @@ class App extends Component {
      todos,
    })
   }
+  togglAllComplete = (done)=>{
+    const todos = {...this.state.todos}
+    const updateTodos = Object.values(todos).reduce((ac,c)=>{
+      c.completed = done;
+      ac[c.id] = c;
+      return ac;
+    },{})
+    this.setState({todos: updateTodos})
+  }
 
   render() {
     return (
       <AppWrapper className="App" >
         <Header title={"Todos"} />
-        <TodoForm onSubmit={this.addTodo}/>
+        <SetButton buttonText="All Done" onClick={(done)=>this.togglAllComplete(done)}/>
+        <TodoForm onSubmit={(done)=>this.addTodo(done)}/>
         <TodoList 
           todos={Object.values(this.state.todos)}
           updateTodo={(id, updateText)=>this.updateTodo(id,updateText)}
