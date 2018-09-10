@@ -46,6 +46,7 @@ const TodoInput = styled.input`
   height: 60px;
   min-width: 300px;
   font-size: 24px;
+  text-decoration: ${({isCompleted})=>isCompleted ? "line-through" : "none" };
 `
 
 
@@ -99,6 +100,7 @@ class TodoListItem extends Component {
             {this.state.completed&&<img src={checkImg} alt=""/>}
           </CompletedBtn>
           <TodoInput 
+            isCompleted={this.state.completed}
             innerRef={el => this.input = el}
             disabled={!this.state.isEdited}
             onBlur={()=>this.updateTodo(updateTodo)}
