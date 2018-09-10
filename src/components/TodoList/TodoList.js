@@ -87,10 +87,11 @@ class TodoListItem extends Component {
   componentDidUpdate(){
     this.input.focus();
   }
-  
-
+  handleDelete(deleteTodo){
+    deleteTodo(this.state.id)
+  }
   render() {
-    const {todoText, updateTodo,updateCompleted } = this.props;
+    const {todoText, updateTodo,updateCompleted, deleteTodo } = this.props;
     return (
       <TodoItem>
         <ListItemContents onDoubleClick={this.makeActiveInput}>
@@ -105,7 +106,7 @@ class TodoListItem extends Component {
             value={this.state.todoText}
             onChange={this.handleChange} 
           />
-          <DeleteBtn>X</DeleteBtn>
+          <DeleteBtn onClick={()=>this.handleDelete(deleteTodo)}>X</DeleteBtn>
         </ListItemContents>
       </TodoItem>
     );
@@ -126,7 +127,7 @@ const TodoListEl = styled.ul`
   margin: 0 auto;
 `
 
-const TodoList = ({todos,updateTodo,updateCompleted }) => {
+const TodoList = ({todos,updateTodo,updateCompleted,deleteTodo }) => {
  console.log(todos)
   return (
     <TodoListEl>
@@ -137,6 +138,7 @@ const TodoList = ({todos,updateTodo,updateCompleted }) => {
         todoText={todoText}
         updateTodo={updateTodo}
         updateCompleted={updateCompleted}
+        deleteTodo={deleteTodo}
       />))}
     </TodoListEl>
   );

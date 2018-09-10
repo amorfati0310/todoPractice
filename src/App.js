@@ -49,6 +49,13 @@ class App extends Component {
       }
     })
   }
+  deleteTodo = (id)=>{
+  const todos = this.state.todos
+  delete todos[id]
+   this.setState({
+     todos,
+   })
+  }
 
   render() {
     return (
@@ -59,6 +66,7 @@ class App extends Component {
           todos={Object.values(this.state.todos)}
           updateTodo={(id, updateText)=>this.updateTodo(id,updateText)}
           updateCompleted={(id,completed)=>this.updateCompleted(id, completed)}
+          deleteTodo={(id)=>this.deleteTodo(id)}
         />
       </AppWrapper>
     );
