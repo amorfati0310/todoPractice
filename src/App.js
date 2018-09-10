@@ -26,9 +26,30 @@ class App extends Component {
     })
     input.value = ''
   };
-  updateTodo = ()=>{
-    console.log('updated')
+  updateTodo = (id, updateText)=>{
+    this.setState({
+      todos: {
+        ...this.state.todos,
+        [id]: {
+          ...this.state.todos[id],
+          todoText: updateText
+        }
+      }
+    })
   }
+  updateCompleted = (id, completed)=>{
+    console.log(completed)
+    this.setState({
+      todos: {
+        ...this.state.todos,
+        [id]: {
+          ...this.state.todos[id],
+          completed,
+        }
+      }
+    })
+  }
+
   render() {
     return (
       <AppWrapper className="App" >
@@ -36,7 +57,8 @@ class App extends Component {
         <TodoForm onSubmit={this.addTodo}/>
         <TodoList 
           todos={Object.values(this.state.todos)}
-          updateTodo={this.updateTodo}
+          updateTodo={(id, updateText)=>this.updateTodo(id,updateText)}
+          updateCompleted={(id,completed)=>this.updateCompleted(id, completed)}
         />
       </AppWrapper>
     );

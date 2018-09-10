@@ -3,6 +3,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { setTimeout } from 'timers';
 
+const checkImg = require('../../assets/images/check.png')
+
 const TodoItem = styled.li`
   position: relative;
   font-size: 24px;
@@ -27,6 +29,9 @@ const CompletedBtn = styled.button`
   height: 40px;
   border: 1px solid #333;
   border-radius: 50%;
+  & img {
+    max-width: 100%;
+  }
 `
 const DeleteBtn = styled.button`
   border: none;
@@ -42,54 +47,66 @@ const TodoInput = styled.input`
   min-width: 300px;
   font-size: 24px;
 `
+
+
+
 class TodoListItem extends Component {
 
   state = {
     isEdited: false,
-    todoText: ""
+    todoText: this.props.todoText,
+    id: this.props.todoId,
+    completed: false,
   }
   makeActiveInput = ({target})=>{
    this.setState({
      isEdited: true
    })
   }
-  makeDeactiveInput = ()=> {
+  updateTodo = (updateTodo)=> {
     this.setState({
       isEdited: false
     })
+    updateTodo(this.state.id, this.state.todoText);
+    
   }
   handleChange = ({target})=> {
     this.setState({
       todoText: target.value
     })
   }
-  componentDidMount(){
+  hanldeToggleUpdate = (updateCompleted)=>{
+    const completed = !this.state.completed
     this.setState({
-      todoText: this.props.todoText
+      completed,
     })
-  }
-  componentDidUpdate(){
- 
-    this.input.focus();
+    console.log(completed)
+    updateCompleted(this.state.id, completed)
   }
 
+  componentDidUpdate(){
+    this.input.focus();
+  }
+  
+
   render() {
-    const {todoText, updateTodo, } = this.props;
+    const {todoText, updateTodo,updateCompleted } = this.props;
     return (
       <TodoItem>
         <ListItemContents onDoubleClick={this.makeActiveInput}>
-          <CompletedBtn></CompletedBtn>
+          <CompletedBtn onClick={()=>this.hanldeToggleUpdate(updateCompleted)}>
+            {this.state.completed&&<img src={checkImg} alt=""/>}
+          </CompletedBtn>
           <TodoInput 
             innerRef={el => this.input = el}
             disabled={!this.state.isEdited}
-            onBlur={this.makeDeactiveInput}
+            onBlur={()=>this.updateTodo(updateTodo)}
             type="text" 
             value={this.state.todoText}
             onChange={this.handleChange} 
           />
           <DeleteBtn>X</DeleteBtn>
         </ListItemContents>
-  
       </TodoItem>
     );
   }
@@ -109,15 +126,17 @@ const TodoListEl = styled.ul`
   margin: 0 auto;
 `
 
-const TodoList = ({todos,updateTodo}) => {
+const TodoList = ({todos,updateTodo,updateCompleted }) => {
  console.log(todos)
   return (
     <TodoListEl>
-      {todos.map(({todoText}, index)=>(
+      {todos.map(({todoText, id}, index)=>(
       <TodoListItem 
-        key={index}
+        key={id}
+        todoId={id}
         todoText={todoText}
         updateTodo={updateTodo}
+        updateCompleted={updateCompleted}
       />))}
     </TodoListEl>
   );
