@@ -5,12 +5,14 @@ import TodoForm from "./components/Form/TodoForm.js";
 import TodoList from './components/TodoList/TodoList.js';
 import uuidv1 from 'uuid/v1';
 
+const AppWrapper = styled.div`
+    background: #f5f5f5;
+    min-height: 100vh;
+`
+
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      todos: {},
-     };
+  state = {
+    todos: {},
   }
   addTodo = (e) => {
     e.preventDefault(); 
@@ -23,15 +25,20 @@ class App extends Component {
       todos: {...this.state.todos, [id]: newTodo}
     })
     input.value = ''
-  
   };
+  updateTodo = ()=>{
+    console.log('updated')
+  }
   render() {
     return (
-      <div className="App">
+      <AppWrapper className="App" >
         <Header title={"Todos"} />
         <TodoForm onSubmit={this.addTodo}/>
-        <TodoList todos={Object.values(this.state.todos)}></TodoList>
-      </div>
+        <TodoList 
+          todos={Object.values(this.state.todos)}
+          updateTodo={this.updateTodo}
+        />
+      </AppWrapper>
     );
   }
 }
