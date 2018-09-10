@@ -7,14 +7,8 @@ const SetButtonEl = styled.button`
 `
 
 class SetButton extends Component {
-  state = {
-    done: true
-  }
   handleClick = (allDone)=>{
-    allDone(this.state.done)
-    this.setState({
-      done: !this.state.done
-    })
+    allDone()
   }
   render() {
     const {buttonText, onClick} = this.props;

@@ -78,8 +78,7 @@ class TodoListItem extends Component {
     const completed = !this.state.completed
     this.setState({
       completed,
-    })
-    console.log(completed)
+    }) 
     updateCompleted(this.state.id, completed)
   }
 

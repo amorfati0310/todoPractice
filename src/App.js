@@ -14,6 +14,8 @@ const AppWrapper = styled.div`
 class App extends Component {
   state = {
     todos: {},
+    countsCompleted: 0,
+    makeAllDone: true,
   }
   addTodo = (e) => {
     e.preventDefault(); 
@@ -38,8 +40,17 @@ class App extends Component {
       }
     })
   }
+  updateCompleteCount(completed){
+    if(completed)this.setState({countsCompleted: this.state.countsCompleted+1})
+    else this.setState({countsCompleted: this.state.countsCompleted-1})
+    const count = completed ? this.state.countsCompleted+1 : this.state.countsCompleted
+    if(this.checkAllCompleted(count)) this.setState({makeAllDone: false})
+  }
+  checkAllCompleted(count){
+    return count===Object.values(this.state.todos).length 
+  }
   updateCompleted = (id, completed)=>{
-    console.log(completed)
+    console.log(id, completed);
     this.setState({
       todos: {
         ...this.state.todos,
@@ -47,8 +58,9 @@ class App extends Component {
           ...this.state.todos[id],
           completed,
         }
-      }
+      }  
     })
+    this.updateCompleteCount(completed)
   }
   deleteTodo = (id)=>{
   const todos = this.state.todos
@@ -57,21 +69,27 @@ class App extends Component {
      todos,
    })
   }
-  togglAllComplete = (done)=>{
+  togglAllComplete = ()=>{
     const todos = {...this.state.todos}
     const updateTodos = Object.values(todos).reduce((ac,c)=>{
-      c.completed = done;
+      c.completed = this.state.makeAllDone;
       ac[c.id] = c;
       return ac;
     },{})
-    this.setState({todos: updateTodos})
+    const counts = this.state.makeAllDone ? Object.values(todos).length : 0; 
+    this.setState({
+      todos: updateTodos,
+      makeAllDone: !this.state.makeAllDone,
+      countsCompleted: counts,
+    })
+
   }
 
   render() {
     return (
       <AppWrapper className="App" >
         <Header title={"Todos"} />
-        <SetButton buttonText="All Done" onClick={(done)=>this.togglAllComplete(done)}/>
+        <SetButton buttonText="All" onClick={()=>this.togglAllComplete()}/>
         <TodoForm onSubmit={(done)=>this.addTodo(done)}/>
         <TodoList 
           todos={Object.values(this.state.todos)}
