@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
-import Header from './Header/Header.js';
-import Filter from './Filter/Filter.js';
-import styled from "styled-components";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import TodoMain from "./TodoMain";
+import AddToDo from './AddToDo/AddToDo.js';
 
 
 class App extends Component {
-  state = {
-    filterList: [
-      {id: 'All', text: 'ALL'},
-      {id: 'ToDo', text: 'TODO'},
-      {id: 'Done', text: 'DONE'}
-    ]
-  }
   render() {
     return (
-      <div className="App">
-        <Header/>
-        <Filter filterList={this.state.filterList}/>
-      </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={TodoMain} />
+        <Route exact path="/add" component={AddToDo} />
+      </Switch>
+    </BrowserRouter>
     );
   }
 }
 
-
 export default App;
+
