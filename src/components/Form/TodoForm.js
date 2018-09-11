@@ -23,7 +23,9 @@ const TodoInput = styled.input`
   position: relative;
   font-size: 24px;
   line-height: 1.4em;
-
+  :focus{
+    outline: none;
+  }
   ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #eee;

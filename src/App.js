@@ -6,6 +6,7 @@ import TodoList from './components/TodoList/TodoList.js';
 import SetButton from './components/SetButton/SetButton.js';
 import TodoModel from './components/TodoModel/TodoModel.js';
 import TodoListItem from './components/TodoListItem/TodoListItem.js';
+import TodoToolBar from './components/TodoToolBar/TodoToolBar.js';
 import uuidv1 from 'uuid/v1';
 
 const AppWrapper = styled.div`
@@ -114,6 +115,7 @@ class App extends Component {
             completed={completed}
           />))}
         </TodoListEl>
+        <TodoToolBar></TodoToolBar>
       </AppWrapper>
     )
 }
