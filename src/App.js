@@ -4,6 +4,7 @@ import Header from "./components/Header/Header.js";
 import TodoForm from "./components/Form/TodoForm.js";
 import TodoList from './components/TodoList/TodoList.js';
 import SetButton from './components/SetButton/SetButton.js';
+import TodoModel from './components/TodoModel/TodoModel.js';
 import uuidv1 from 'uuid/v1';
 
 const AppWrapper = styled.div`
@@ -22,61 +23,47 @@ class App extends Component {
     const input = e.target.elements.addInput
     const todoText = input.value.trim();
     const id = uuidv1();
-    const newTodo = {id, todoText, completed: false}
-    // e.target[0] 이런 maginNumber 말고 알아서 접근할 수 있는 방법 없나?
+    const newTodo = new TodoModel(id, todoText)
     todoText&&this.setState({
       todos: {...this.state.todos, [id]: newTodo}
     })
     input.value = ''
   };
   updateTodo = (id, updateText)=>{
-    this.setState({
-      todos: {
-        ...this.state.todos,
-        [id]: {
-          ...this.state.todos[id],
-          todoText: updateText
-        }
-      }
-    })
+    const prevTodos = this.state.todos
+    prevTodos[id].updateTodoText(updateText)
+    this.setState({todos: {...prevTodos}})
   }
   updateCompleteCount(completed){
-    if(completed)this.setState({countsCompleted: this.state.countsCompleted+1})
-    else this.setState({countsCompleted: this.state.countsCompleted-1})
+    const countCompleted = this.state.countsCompleted
+    if(completed)this.setState({countsCompleted: countCompleted+1})
+    else this.setState({countsCompleted: countCompleted-1})
   
-    const count = completed ? this.state.countsCompleted+1 : this.state.countsCompleted-1
-   
-    if(this.checkAllCompleted(count)) this.setState({makeAllDone: false})
-    else this.setState({makeAllDone: true})
+    const count = completed ? countCompleted+1 : countCompleted-1 
+    const AllDone = this.checkAllCompleted(count)
+    this.setAllSetButtonState(AllDone);
+  }
+  setAllSetButtonState(allDone){
+    this.setState({makeAllDone: !allDone})
   }
   checkAllCompleted(count){
-   
     return count===Object.values(this.state.todos).length 
   }
   updateCompleted = (id, completed)=>{
-    console.log(id, completed);
-    this.setState({
-      todos: {
-        ...this.state.todos,
-        [id]: {
-          ...this.state.todos[id],
-          completed,
-        }
-      }  
-    })
+    const prevTodos = this.state.todos
+    prevTodos[id].updateTodoComplete(completed)
+    this.setState({todos: {...prevTodos}})
     this.updateCompleteCount(completed)
   }
   deleteTodo = (id)=>{
-  const todos = this.state.todos
-  delete todos[id]
-   this.setState({
-     todos,
-   })
+    const todos = this.state.todos
+    delete todos[id]
+    this.setState({todos})
   }
   togglAllComplete = ()=>{
-    const todos = {...this.state.todos}
+    const todos = this.state.todos
     const updateTodos = Object.values(todos).reduce((ac,c)=>{
-      c.completed = this.state.makeAllDone;
+      c.updateTodoComplete(this.state.makeAllDone);
       ac[c.id] = c;
       return ac;
     },{})
@@ -86,7 +73,6 @@ class App extends Component {
       makeAllDone: !this.state.makeAllDone,
       countsCompleted: counts,
     })
-
   }
 
   render() {
