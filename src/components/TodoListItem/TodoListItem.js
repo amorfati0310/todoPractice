@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const checkImg = require('../../../assets/images/check.png')
+const checkImg = require('../../assets/images/check.png')
 
 const TodoItem = styled.li`
   position: relative;
@@ -91,7 +91,7 @@ class TodoListItem extends Component {
       <TodoItem>
         <ListItemContents onDoubleClick={this.makeActiveInput}>
           <CompletedBtn onClick={()=>this.hanldeToggleUpdate(updateCompleted)}>
-            {completed&&<img src={checkImg} alt=""/>}
+            {completed&&<img src={checkImg} alt="completed Btn"/>}
           </CompletedBtn>
           <TodoInput 
             isCompleted={completed}

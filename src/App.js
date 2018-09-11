@@ -5,6 +5,7 @@ import TodoForm from "./components/Form/TodoForm.js";
 import TodoList from './components/TodoList/TodoList.js';
 import SetButton from './components/SetButton/SetButton.js';
 import TodoModel from './components/TodoModel/TodoModel.js';
+import TodoListItem from './components/TodoListItem/TodoListItem.js';
 import uuidv1 from 'uuid/v1';
 
 const AppWrapper = styled.div`
@@ -16,6 +17,14 @@ const AppWrapper = styled.div`
     padding-right: 25px;
 `
 
+const TodoListEl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  margin: 0 auto;
+`
 class App extends Component {
   state = {
     todos: {},
@@ -32,7 +41,7 @@ class App extends Component {
   addTodo = (todoText)=>{
     const id = uuidv1();
     const newTodo = new TodoModel(id, todoText)
-    todoText&&this.setState({
+    this.setState({
       todos: {...this.state.todos, [id]: newTodo}
     })
   }
@@ -84,6 +93,7 @@ class App extends Component {
   }
 
   render() {
+    const {todos} = this.state
     return (
       <AppWrapper className="App" >
         <Header title={"Todos"} />
@@ -94,13 +104,18 @@ class App extends Component {
         <TodoForm 
           onSubmit={(done)=>this.handleSubmit(done)} 
         />
-        <TodoList 
-          addTodo={this.addTodo}
-          todos={Object.values(this.state.todos)}
-          updateTodo={(id, updateText)=>this.updateTodo(id,updateText)}
-          updateCompleted={(id,completed)=>this.updateCompleted(id, completed)}
-          deleteTodo={(id)=>this.deleteTodo(id)}
-        />
+        <TodoListEl>
+          {Object.values(todos).map(({todoText, id, completed})=>(   
+          <TodoListItem 
+            key={id}
+            todoId={id}
+            todoText={todoText}
+            updateTodo={(id, updateText)=>this.updateTodo(id,updateText)}
+            updateCompleted={(id,completed)=>this.updateCompleted(id, completed)}
+            deleteTodo={(id)=>this.deleteTodo(id)}
+            completed={completed}
+          />))}
+        </TodoListEl>
       </AppWrapper>
     )
 }

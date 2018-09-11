@@ -40,24 +40,14 @@ const TodoInput = styled.input`
 `;
 
 class TodoForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { todoText: "" };
-  }
-  handleChange = ({ target }) => {
-    const todoText = target.value.trim();
-    todoText && this.setState({ todoText });
-  };
   render() {
-    const {onSubmit,onSetClick} = this.props;
+    const {onSubmit} = this.props;
     return (
       <StyledForm onSubmit={onSubmit}>
-      
         <TodoInput 
           name="addInput"
           placeholder="할 일을 입력해주세요" 
           type="text" 
-          onChange={this.handleChange} 
         />
       </StyledForm>
     );
