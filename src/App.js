@@ -43,10 +43,14 @@ class App extends Component {
   updateCompleteCount(completed){
     if(completed)this.setState({countsCompleted: this.state.countsCompleted+1})
     else this.setState({countsCompleted: this.state.countsCompleted-1})
-    const count = completed ? this.state.countsCompleted+1 : this.state.countsCompleted
+  
+    const count = completed ? this.state.countsCompleted+1 : this.state.countsCompleted-1
+   
     if(this.checkAllCompleted(count)) this.setState({makeAllDone: false})
+    else this.setState({makeAllDone: true})
   }
   checkAllCompleted(count){
+   
     return count===Object.values(this.state.todos).length 
   }
   updateCompleted = (id, completed)=>{

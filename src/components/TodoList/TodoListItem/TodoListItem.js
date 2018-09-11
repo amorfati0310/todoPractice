@@ -55,7 +55,6 @@ class TodoListItem extends Component {
     isEdited: false,
     todoText: this.props.todoText,
     id: this.props.todoId,
-    completed: this.props.completed,
   }
   makeActiveInput = ({target})=>{
    this.setState({
@@ -75,10 +74,7 @@ class TodoListItem extends Component {
     })
   }
   hanldeToggleUpdate = (updateCompleted)=>{
-    const completed = !this.state.completed
-    this.setState({
-      completed,
-    }) 
+    const completed = !this.props.completed
     updateCompleted(this.state.id, completed)
   }
 
@@ -100,7 +96,7 @@ class TodoListItem extends Component {
             isCompleted={completed}
             innerRef={el => this.input = el}
             disabled={!this.state.isEdited}
-            onBlur={()=>this.updateTodo(updateTodo)}
+            onBlur={this.updateTodo.bind(this,updateTodo)}
             type="text" 
             value={this.state.todoText}
             onChange={this.handleChange} 
