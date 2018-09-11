@@ -73,7 +73,7 @@ class TodoToolBar extends Component {
           {(clear!==0)&&
             <TodoToolButton  
               onClick={onClick}
-              name="Completed">
+              name="ClearCompleted">
               Clear Completed
             </TodoToolButton>}
       </ControllerWrapper>

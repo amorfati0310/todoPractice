@@ -30,6 +30,7 @@ class App extends Component {
     todos: {},
     countsCompleted: 0,
     makeAllDone: true,
+    filtered: [],
   }
   handleSubmit = (e) => {
     e.preventDefault(); 
@@ -42,14 +43,19 @@ class App extends Component {
     const id = uuidv1();
     const newTodo = new TodoModel(id, todoText)
     this.setState({
-      todos: {...this.state.todos, [id]: newTodo}
+      todos: {...this.state.todos, [id]: newTodo},
+      filtered: Object.values({...this.state.todos, [id]: newTodo})
     })
   }
   
   updateTodo = (id, updateText)=>{
     const prevTodos = this.state.todos
     prevTodos[id].updateTodoText(updateText)
-    this.setState({todos: {...prevTodos}})
+    const updatedTodo = {...prevTodos}
+    this.setState({
+      todos: updatedTodo,
+      filtered: Object.values(updatedTodo)
+    })
   }
   updateCompleteCount(completed){
     const countCompleted = this.state.countsCompleted
@@ -69,13 +75,20 @@ class App extends Component {
   updateCompleted = (id, completed)=>{
     const prevTodos = this.state.todos
     prevTodos[id].updateTodoComplete(completed)
-    this.setState({todos: {...prevTodos}})
+    const updatedTodo = {...prevTodos}
+    this.setState({
+      todos: updatedTodo,
+      filtered: Object.values(updatedTodo)
+    })
     this.updateCompleteCount(completed)
   }
   deleteTodo = (id)=>{
     const todos = this.state.todos
     delete todos[id]
-    this.setState({todos})
+    this.setState({
+      todos,
+      filtered: Object.values(todos)
+    })
   }
   togglAllComplete = (e)=>{
     const todos = this.state.todos
@@ -89,15 +102,54 @@ class App extends Component {
       todos: updateTodos,
       makeAllDone: !this.state.makeAllDone,
       countsCompleted: counts,
+      filtered: Object.values(updateTodos)
     })
   }
   getFilter = (e)=>{
-    
+    const filters = {
+      All: ()=>this.filterAll(),
+      Active: ()=>this.filterActive(),
+      Completed: ()=>this.filterCompleted(),
+      ClearCompleted: ()=>this.clearCompleted()
+    }
+    filters[e.target.name]();
+  }
+  updateFilter(updated){
+    this.setState({
+      ...this.state,
+      filtered: Object.values(updated)
+    })
+  }
+  filterAll(){
+    this.updateFilter(this.state.todos)
+  }
+  filterActive(){
+    const activeFiltered = Object.values(this.state.todos)
+    .filter(todo=>!todo.completed)
+    this.updateFilter(activeFiltered)
+  }
+  filterCompleted(){
+    const completedFiltered = Object.values(this.state.todos)
+    .filter(todo=>todo.completed)
+    this.updateFilter(completedFiltered)
+  }
+  clearCompleted(){
+    const clearFiltered = Object.values(this.state.todos)
+    .filter(todo=>!todo.completed)
+    .reduce((ac,c)=>{
+      ac[c.id] = c
+      return ac;
+    },{})
+    this.setState({
+      todos: clearFiltered,
+      filtered: Object.values(clearFiltered)
+    })
   }
 
+
   render() {
-    const {todos} = this.state
-    const todoList = Object.values(todos)
+    const {filtered} = this.state
+   
     return (
       <AppWrapper className="App" >
         <Header title={"Todos"} />
@@ -107,7 +159,7 @@ class App extends Component {
           onSubmit={(done)=>this.handleSubmit(done)} 
         />
         <TodoListEl>
-          {todoList.map(({todoText, id, completed})=>(   
+          {filtered.map(({todoText, id, completed})=>(   
           <TodoListItem 
             key={id}
             todoId={id}
@@ -120,7 +172,7 @@ class App extends Component {
         </TodoListEl>
         <TodoToolBar
           onClick={this.getFilter}
-          counts={todoList.length}
+          counts={filtered.length}
           clear={this.state.countsCompleted}
         />
       </AppWrapper>
