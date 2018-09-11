@@ -105,14 +105,18 @@ class App extends Component {
       filtered: Object.values(updateTodos)
     })
   }
-  getFilter = (e)=>{
-    const filters = {
-      All: ()=>this.filterAll(),
-      Active: ()=>this.filterActive(),
-      Completed: ()=>this.filterCompleted(),
-      ClearCompleted: ()=>this.clearCompleted()
+  getFilter = ({target: {name}})=>{
+    if(name==="ClearCompleted") return this.clearCompleted()
+    else return this.filterbyName(name)
+  }
+  filterbyName(name){
+    if(name==="All") return this.updateFilter(this.state.todos)
+    else {
+      const completed = name === "Completed" 
+      const updated = Object.values(this.state.todos)
+      .filter(todo=>todo.completed===completed)
+      this.updateFilter(updated)
     }
-    filters[e.target.name]();
   }
   updateFilter(updated){
     this.setState({
@@ -120,19 +124,7 @@ class App extends Component {
       filtered: Object.values(updated)
     })
   }
-  filterAll(){
-    this.updateFilter(this.state.todos)
-  }
-  filterActive(){
-    const activeFiltered = Object.values(this.state.todos)
-    .filter(todo=>!todo.completed)
-    this.updateFilter(activeFiltered)
-  }
-  filterCompleted(){
-    const completedFiltered = Object.values(this.state.todos)
-    .filter(todo=>todo.completed)
-    this.updateFilter(completedFiltered)
-  }
+
   clearCompleted(){
     const clearFiltered = Object.values(this.state.todos)
     .filter(todo=>!todo.completed)
