@@ -4,14 +4,6 @@ import PropTypes from "prop-types";
 import TodoListItem from './TodoListItem/TodoListItem.js'
 
 
-
-
-
-
-
-
-
-
 const TodoListEl = styled.ul`
   display: flex;
   flex-direction: column;

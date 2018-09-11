@@ -53,6 +53,7 @@ class TodoForm extends Component {
     return (
       <StyledForm onSubmit={this.props.onSubmit}>
         <TodoInput 
+          name="addInput"
           placeholder="할 일을 입력해주세요" 
           type="text" 
           onChange={this.handleChange} 

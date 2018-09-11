@@ -19,7 +19,7 @@ class App extends Component {
   }
   addTodo = (e) => {
     e.preventDefault(); 
-    const input = e.target[0]
+    const input = e.target.elements.addInput
     const todoText = input.value.trim();
     const id = uuidv1();
     const newTodo = {id, todoText, completed: false}
