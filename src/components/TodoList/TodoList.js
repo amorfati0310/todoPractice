@@ -9,7 +9,7 @@ const TodoListEl = styled.ul`
   flex-direction: column;
   list-style: none;
   padding-left: 0;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 `
 

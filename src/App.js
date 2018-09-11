@@ -8,8 +8,12 @@ import TodoModel from './components/TodoModel/TodoModel.js';
 import uuidv1 from 'uuid/v1';
 
 const AppWrapper = styled.div`
+    width: 100%;
     background: #f5f5f5;
     min-height: 100vh;
+    box-sizing: border-box;
+    padding-left: 25px;
+    padding-right: 25px;
 `
 
 class App extends Component {
@@ -18,17 +22,21 @@ class App extends Component {
     countsCompleted: 0,
     makeAllDone: true,
   }
-  addTodo = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault(); 
     const input = e.target.elements.addInput
     const todoText = input.value.trim();
+    todoText && this.addTodo(todoText) 
+    input.value = '' 
+  };
+  addTodo = (todoText)=>{
     const id = uuidv1();
     const newTodo = new TodoModel(id, todoText)
     todoText&&this.setState({
       todos: {...this.state.todos, [id]: newTodo}
     })
-    input.value = ''
-  };
+  }
+  
   updateTodo = (id, updateText)=>{
     const prevTodos = this.state.todos
     prevTodos[id].updateTodoText(updateText)
@@ -60,7 +68,7 @@ class App extends Component {
     delete todos[id]
     this.setState({todos})
   }
-  togglAllComplete = ()=>{
+  togglAllComplete = (e)=>{
     const todos = this.state.todos
     const updateTodos = Object.values(todos).reduce((ac,c)=>{
       c.updateTodoComplete(this.state.makeAllDone);
@@ -79,17 +87,23 @@ class App extends Component {
     return (
       <AppWrapper className="App" >
         <Header title={"Todos"} />
-        <SetButton buttonText="All" onClick={()=>this.togglAllComplete()}/>
-        <TodoForm onSubmit={(done)=>this.addTodo(done)}/>
+        <SetButton 
+          buttonText="All"
+          onClick={(e)=>this.togglAllComplete(e)}
+        />
+        <TodoForm 
+          onSubmit={(done)=>this.handleSubmit(done)} 
+        />
         <TodoList 
+          addTodo={this.addTodo}
           todos={Object.values(this.state.todos)}
           updateTodo={(id, updateText)=>this.updateTodo(id,updateText)}
           updateCompleted={(id,completed)=>this.updateCompleted(id, completed)}
           deleteTodo={(id)=>this.deleteTodo(id)}
         />
       </AppWrapper>
-    );
-  }
+    )
+}
 }
 
 export default App;

@@ -22,23 +22,24 @@ const ListItemContents = styled.div`
   padding-right: 30px;
 `
 
-const CompletedBtn = styled.button`
-  border: none;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #333;
-  border-radius: 50%;
-  & img {
-    max-width: 100%;
-  }
-`
 const DeleteBtn = styled.button`
   border: none;
+  background: transparent;
   width: 40px;
   height: 40px;
   font-size: 32px;
   color: red;
 `
+
+const CompletedBtn = styled(DeleteBtn)`
+  border: 1px solid #333;
+  margin-right: 20px;
+  border-radius: 50%;
+  & img {
+    max-width: 100%;
+  }
+`
+
 
 const TodoInput = styled.input`
   border: none;

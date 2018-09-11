@@ -2,26 +2,26 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
+
 const StyledForm = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
+  background: #fff;
 `;
 
 const TodoInput = styled.input`
+  box-sizing: border-box;
   padding: 16px 16px 16px 60px;
-  border: none;
+
+  border: 0;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   position: relative;
   font-size: 24px;
-  font-family: inherit;
-  font-weight: inherit;
   line-height: 1.4em;
-  min-width: 500px;
 
   ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -48,10 +48,11 @@ class TodoForm extends Component {
     const todoText = target.value.trim();
     todoText && this.setState({ todoText });
   };
- 
   render() {
+    const {onSubmit,onSetClick} = this.props;
     return (
-      <StyledForm onSubmit={this.props.onSubmit}>
+      <StyledForm onSubmit={onSubmit}>
+      
         <TodoInput 
           name="addInput"
           placeholder="할 일을 입력해주세요" 

@@ -3,4 +3,10 @@ body {
   padding: 0;
   font-family: sans-serif;
   background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+}
+
+button:focus {
+  outline: none;
 }
