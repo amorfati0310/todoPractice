@@ -86,7 +86,7 @@ class TodoListItem extends Component {
     deleteTodo(this.state.id)
   }
   render() {
-    const {todoText, updateTodo,updateCompleted, deleteTodo, completed } = this.props;
+    const { updateTodo,updateCompleted, deleteTodo, completed } = this.props;
     return (
       <TodoItem>
         <ListItemContents onDoubleClick={this.makeActiveInput}>

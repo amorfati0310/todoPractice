@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Header from "./components/Header/Header.js";
 import TodoForm from "./components/Form/TodoForm.js";
-import TodoList from './components/TodoList/TodoList.js';
 import SetButton from './components/SetButton/SetButton.js';
 import TodoModel from './components/TodoModel/TodoModel.js';
 import TodoListItem from './components/TodoListItem/TodoListItem.js';
@@ -92,9 +91,13 @@ class App extends Component {
       countsCompleted: counts,
     })
   }
+  getFilter = (e)=>{
+    
+  }
 
   render() {
     const {todos} = this.state
+    const todoList = Object.values(todos)
     return (
       <AppWrapper className="App" >
         <Header title={"Todos"} />
@@ -104,7 +107,7 @@ class App extends Component {
           onSubmit={(done)=>this.handleSubmit(done)} 
         />
         <TodoListEl>
-          {Object.values(todos).map(({todoText, id, completed})=>(   
+          {todoList.map(({todoText, id, completed})=>(   
           <TodoListItem 
             key={id}
             todoId={id}
@@ -115,7 +118,11 @@ class App extends Component {
             completed={completed}
           />))}
         </TodoListEl>
-        <TodoToolBar></TodoToolBar>
+        <TodoToolBar
+          onClick={this.getFilter}
+          counts={todoList.length}
+          clear={this.state.countsCompleted}
+        />
       </AppWrapper>
     )
 }
