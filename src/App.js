@@ -97,11 +97,9 @@ class App extends Component {
     return (
       <AppWrapper className="App" >
         <Header title={"Todos"} />
-        <SetButton 
-          buttonText="All"
-          onClick={(e)=>this.togglAllComplete(e)}
-        />
         <TodoForm 
+          buttonText="All"
+          onSetButtonClick={(e)=>this.togglAllComplete(e)}
           onSubmit={(done)=>this.handleSubmit(done)} 
         />
         <TodoListEl>

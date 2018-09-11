@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-
+import SetButton from '../SetButton/SetButton.js';
 
 const StyledForm = styled.form`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,14 +42,17 @@ const TodoInput = styled.input`
 
 class TodoForm extends Component {
   render() {
-    const {onSubmit} = this.props;
+    const {onSubmit, buttonText, onSetButtonClick} = this.props;
     return (
       <StyledForm onSubmit={onSubmit}>
-        <TodoInput 
-          name="addInput"
-          placeholder="할 일을 입력해주세요" 
-          type="text" 
-        />
+        <SetButton 
+          buttonText={buttonText} 
+          onSetButtonClick={onSetButtonClick}/>
+          <TodoInput 
+            name="addInput"
+            placeholder="할 일을 입력해주세요" 
+            type="text" 
+          />
       </StyledForm>
     );
   }

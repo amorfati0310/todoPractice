@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 
 const SetButtonEl = styled.button`
   position: absolute;
-  left: 50px;
+  font-size: 24px;
+  left: 0;
   width: 65px;
   height: 65px;
   background: transparent;
@@ -16,9 +17,11 @@ const SetButtonEl = styled.button`
 class SetButton extends Component {
 
   render() {
-    const {buttonText, onClick} = this.props;
+    const {buttonText, onSetButtonClick} = this.props;
     return (
-      <SetButtonEl onClick={onClick}>
+      <SetButtonEl 
+      type="button"
+      onClick={onSetButtonClick}>
       {buttonText}    
       </SetButtonEl>
     );
