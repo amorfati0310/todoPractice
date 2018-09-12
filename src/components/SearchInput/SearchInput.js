@@ -9,13 +9,16 @@ const StyledInput = styled.input`
   border: solid 1px #e8e8e8;
   box-sizing: border-box;
   padding-left: 40px;
+  ::placeholder {
+    color: #d8d8d8
+  }
 `
 
 class SearchInput extends Component {
   render() {
     return (
       <form>
-        <StyledInput type="text" placeholder="search for tasks"/>
+        <StyledInput type="text" placeholder="Search for tasks"/>
       </form>
     );
   }

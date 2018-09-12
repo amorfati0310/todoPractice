@@ -10,6 +10,7 @@ const ContentWrapper = styled.div`
   box-sizing: border-box;
   padding-left: 15px;
   padding-right: 15px;
+  padding-top: 15px;
   position: relative;
 `
 
