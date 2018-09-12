@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {IconButton} from '../IconButton/IconButton.js';
 
 const checkIcon = require('../../assets/images/checked.svg')
@@ -12,6 +12,8 @@ const TodoListItemEl = styled.li`
 `
 
 
+
+
 const TodoText = styled.p`
   font-family: SFCompactDisplay;
   font-size: 16px;
@@ -22,6 +24,10 @@ const TodoText = styled.p`
   color: #444444;
   margin-top: 19px;
   margin-bottom: 4px;
+  ${props =>props.completed && css`
+      color: #e8e8e8;
+      text-decoration: line-through;
+  `}
 `
 
 const TodoTimeLine = styled.p`
@@ -29,6 +35,10 @@ const TodoTimeLine = styled.p`
   line-height: 15px;
   color: #fd9a9a;
   margin-bottom: 17px;
+  ${props =>props.completed && css`
+      color: #e8e8e8;
+      text-decoration: line-through;
+  `}
 `
 
 const ContentWrapper = styled.div`
@@ -61,8 +71,8 @@ class TodoListItem extends Component {
             size={checkButtonSize}
           />
           <TextWrapper>
-            <TodoText>{todoText}</TodoText>
-            <TodoTimeLine>{timeline}</TodoTimeLine>
+            <TodoText completed={completed}>{todoText}</TodoText>
+            <TodoTimeLine completed={completed}>{timeline}</TodoTimeLine>
           </TextWrapper>
         </ContentWrapper>
         <IconButton
