@@ -16,6 +16,14 @@ const ContentWrapper = styled.div`
 
 const addIcon = require('../assets/images/addButton.png')
 
+const TodoListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  width: 100%;
+  margin: 0 auto;
+`
+
 class TodoMain extends Component {
   state = {
     filterList: [
@@ -23,12 +31,14 @@ class TodoMain extends Component {
       {id: 'ToDo', text: 'TODO'},
       {id: 'Done', text: 'DONE'}
     ],
-    todos: this.props.history.location.state
+    todos: this.props.todos
   }
   goToAddPage = ()=>{
     this.props.history.push(`/add`);
   }
   render() {
+    const {todos} = this.state; 
+    console.log(todos)
     return (
       <div className="App">
         <Header/>
@@ -36,6 +46,14 @@ class TodoMain extends Component {
         <ContentWrapper>
          <SearchInput/>
          <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
+         <TodoListWrapper>
+         {todos.map(({todoText, id, completed})=>(
+          <li
+            key={id}>
+            {todoText}
+          </li> 
+          ))}
+         </TodoListWrapper>
         </ContentWrapper> 
       </div>
     );

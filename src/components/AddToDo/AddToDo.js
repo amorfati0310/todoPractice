@@ -15,6 +15,7 @@ const TodoLabel = styled.label`
   font-size: 14px;
   line-height: 16px;
   color: #00ffe2;
+  margin-bottom: 10px;
 `
 
 const TodoForm = styled.form`
@@ -41,6 +42,9 @@ const TodoForm = styled.form`
     color: #fff;
     ::placeholder {
       color: #696969;
+    }
+    :focus {
+      outline: none;
     }
   }
 `

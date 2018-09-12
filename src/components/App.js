@@ -16,14 +16,34 @@ const GlobalStyles = injectGlobal`
         outline: none;
       }
     }
+    ul {
+      padding-left: 0;
+      margin: 0;
+    }
 `
 
 class App extends Component {
+  state = {
+    todos: [
+      {id: 'All', todoText: 'ALL',completed: false},
+      {id: 'ToDo', todoText: 'TODO',completed: false},
+      {id: 'Done', todoText: 'DONE',completed: true}
+    ],
+  }
   render() {
     return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={TodoMain} />
+      
+        <Route 
+          exact path="/" 
+          render={(props) => 
+          <TodoMain 
+            todos={this.state.todos}
+            {...props} 
+          />
+        }
+        />
         <Route exact path="/add" component={AddToDo} />
       </Switch>
     </BrowserRouter>
