@@ -1,7 +1,9 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const defaultSize = 50
+
+
 
 // question 
 // const IconButtonEl = styled.button`
@@ -14,10 +16,16 @@ const defaultSize = 50
 const IconButtonEl = styled.button` 
   width: ${props => props.size+'px'};
   height: ${props => props.size+'px'};
+  ${props =>props.circle && css`
+      border-radius: 50%;
+      border: 1px solid #eee`}
+  ${props =>props.completed && css`
+      background: ${props.background};
+  `}
   & img {
     max-width: 100%;
   }
- `
+`;
 
 const FloatButtonEl  = styled(IconButtonEl)`
   position: fixed;
@@ -32,13 +40,18 @@ const FloatButtonEl  = styled(IconButtonEl)`
     max-width: 100%;
   }
 `
-const AddButton = styled.button`
 
-`
 
-const IconButton = ({iconSrc, onClick, size=defaultSize}) => {
+const IconButton = ({iconSrc, onClick, size=defaultSize, style, background="transparent", circle=false, completed}) => {
   return (
-    <IconButtonEl onClick={onClick} size={size}>
+    <IconButtonEl 
+      completed={completed}
+      onClick={onClick} 
+      size={size}
+      stlye={style}
+      background={background}
+      circle={circle}
+    >
       <img src={iconSrc} alt=""/>
     </IconButtonEl>
   );

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Header from './Header/Header.js';
 import Filter from './Filter/Filter.js';
 import SearchInput from './SearchInput/SearchInput.js';
+import TodoListItem from './TodoListItem/TodoListItem'
 import {FloatButton} from './IconButton/IconButton.js';
+
 
 import styled from "styled-components";
 
@@ -47,11 +49,14 @@ class TodoMain extends Component {
          <SearchInput/>
          <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
          <TodoListWrapper>
-         {todos.map(({todoText, id, completed})=>(
-          <li
-            key={id}>
-            {todoText}
-          </li> 
+         {todos.map(({todoText, id, completed, timeline})=>(
+          <TodoListItem
+            key={id}
+            id={id}
+            todoText={todoText}
+            completed={completed}
+            timeline={timeline}
+          />
           ))}
          </TodoListWrapper>
         </ContentWrapper> 
