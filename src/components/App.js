@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import TodoMain from "./TodoMain";
 import AddToDo from './AddToDo/AddToDo.js';
 import styled, {injectGlobal} from "styled-components";
-
+import ToDoModel from './TodoModel/TodoModle.js';
+import TodoModel from './TodoModel/TodoModle.js';
 
 const GlobalStyles = injectGlobal`
     body {
@@ -39,11 +40,28 @@ class App extends Component {
       {id: '5', todoText: '둔둔이 뭉친털 자르기',completed: true, timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'},
       {id: '6', todoText: '둔둔이 냠냠이 주기 ',completed: true, timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'}
     ],
+    filterKey: 'ALL',
+    filterKeyList: ['ALL','TODO','DONE'],
   }
-  addToDo = ()=>{
-    
+  handleSubmit = (e,goToMain) => {
+    e.preventDefault(); 
+    const input = e.target.elements.addInput
+    const todoText = input.value.trim();
+    todoText && this.addToDo(todoText, goToMain) 
+    input.value = '' 
+  };
+  addToDo = (todoText, goToMain)=>{
+    const newTodo = new TodoModel(todoText)
+    this.setState({
+      todos:this.state.todos.concat(newTodo)
+    })
+    goToMain();
+  }
+  handleFilterButtonClicked = ()=>{
+    console.log('aaa')
   }
   render() {
+    const {filterKey, todos, filterKeyList} = this.state
     return (
     <BrowserRouter>
       <Switch>
@@ -51,12 +69,23 @@ class App extends Component {
           exact path="/" 
           render={(props) => 
           <TodoMain 
-            todos={this.state.todos}
+            filterKeyList={filterKeyList}
+            filterKey={filterKey}
+            todos={todos}
+            FBonClick={()=>this.handleFBClicked}
             {...props} 
           />
         }
         />
-        <Route exact path="/add" component={AddToDo} />
+        <Route 
+          exact path="/add" 
+          render={(props) => 
+            <AddToDo 
+               onSubmit={(e, goToMain)=>this.handleSubmit(e,goToMain)}
+              {...props} 
+            />
+          }
+        />
       </Switch>
     </BrowserRouter>
     );
