@@ -6,6 +6,9 @@ import styled, {injectGlobal} from "styled-components";
 
 
 const GlobalStyles = injectGlobal`
+    body {
+     margin: 0; 
+    }
     button {
       border: none;
       background: transparent;

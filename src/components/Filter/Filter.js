@@ -40,18 +40,18 @@ const FilterEl = styled.ul`
       box-sizing: border-box;
       margin-left: 10px;
       margin-right: 10px;
-    
       position: absolute;
       transition: all 0.2s ease-in-out;
       z-index: 100;
       height: 3px;
-    }
-    &:hover {
-      color: #222;
-      ::before {
-        right: 0;
+      &:hover {
+        color: #222;
+        ::before {
+          right: 0;
+        }
       }
     }
+ 
   }
 }
 `
