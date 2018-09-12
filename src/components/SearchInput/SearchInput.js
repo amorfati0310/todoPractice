@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
+import {IconButton} from '../IconButton/IconButton';
+const searchIcon = require('../../assets/images/search-icon.svg')
+
+
+const FormEl = styled.form`
+ position: relative;
+ display: flex;
+ align-items: center;
+`
 
 const StyledInput = styled.input`
-  position: relative;
   width: 345px;
   height: 35px;
   border-radius: 5px;
@@ -14,12 +22,23 @@ const StyledInput = styled.input`
   }
 `
 
+//
+const SearchButton = styled(IconButton)`
+  position: absolute;
+  left: 40px;
+`
+//
+
+
+const searchSize = 40;
+
 class SearchInput extends Component {
   render() {
     return (
-      <form>
+      <FormEl>
+        <SearchButton iconSrc={searchIcon} size={searchSize}/>
         <StyledInput type="text" placeholder="Search for tasks"/>
-      </form>
+      </FormEl>
     );
   }
 }

@@ -1,14 +1,28 @@
 import React from 'react';
 import styled from "styled-components";
 
-const AddButton = styled.button`
+const defaultSize = 50
+
+// question 
+// const IconButtonEl = styled.button`
+//   width: ${({width}) => width ? width: defaultWidth};
+//   height: ${({height}) => height ? height:defaultWidth};
+//    width: ${({width=defulatWidth}) => width ? width: defaultWidth};
+//   height: ${({height}) => height ? height:defaultWidth};
+// `
+
+const IconButtonEl = styled.button` 
+  width: ${props => props.size+'px'};
+  height: ${props => props.size+'px'};
+  & img {
+    max-width: 100%;
+  }
+ `
+
+const FloatButtonEl  = styled(IconButtonEl)`
   position: fixed;
   border-radius: 50%;
   padding: 0;
-  border: none;
-  width: 50px;
-  height: 50px;
-  background: transparent;
   bottom: 20px;
   right: 20px;
   & img {
@@ -18,13 +32,30 @@ const AddButton = styled.button`
     max-width: 100%;
   }
 `
+const AddButton = styled.button`
 
-const IconButton = ({iconSrc, onClick}) => {
+`
+
+const IconButton = ({iconSrc, onClick, size=defaultSize}) => {
   return (
-    <AddButton onClick={onClick}>
+    <IconButtonEl onClick={onClick} size={size}>
       <img src={iconSrc} alt=""/>
-    </AddButton>
+    </IconButtonEl>
+  );
+};
+const FloatButton = ({iconSrc, onClick, size=defaultSize}) => {
+  return (
+    <FloatButtonEl onClick={onClick} size={size}>
+      <img src={iconSrc} alt=""/>
+    </FloatButtonEl>
   );
 };
 
-export default IconButton;
+// IconButton.defulatProps = {
+//   size: 50,
+// }
+
+export {
+  IconButton,
+  FloatButton,
+};
