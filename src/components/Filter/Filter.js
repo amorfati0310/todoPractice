@@ -60,11 +60,11 @@ const sortSize = 40;
 
 class Filter extends Component {
   render() {
-    const {FBonClick} = this.props;
+    const {FBonClick, filterKeyList} = this.props;
     return (
       <Wrapper>
         <FilterEl>
-          {this.props.filterKeyList.map((filterKey,i)=>(
+          {filterKeyList.map((filterKey,i)=>(
             <li key={i}>
               <button onClick={FBonClick}>{filterKey}</button>
             </li>

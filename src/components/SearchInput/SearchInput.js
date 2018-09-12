@@ -6,13 +6,11 @@ const searchIcon = require('../../assets/images/search-icon.svg')
 const FormWrapper = styled.form `
    position: relative;
    box-sizing: border-box;
-   padding-left: 10px;
-   padding-right: 10px;
 `
 
 const StyledInput = styled.input`
  
-  width: 345px;
+  width: 100%;
   height: 35px;
   border-radius: 5px;
   border: solid 1px #e8e8e8;
@@ -24,7 +22,7 @@ const StyledInput = styled.input`
 `
 const SearchButton = styled.button`
   position: absolute;
-  left: 10px;
+  left: 0;
   width: 35px;
   height: 35px;
   

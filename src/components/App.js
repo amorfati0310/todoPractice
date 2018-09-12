@@ -57,8 +57,11 @@ class App extends Component {
     })
     goToMain();
   }
-  handleFilterButtonClicked = ()=>{
-    console.log('aaa')
+  handleFBClicked = ({target})=>{
+    const filterKey = target.innerText
+    this.setState({
+      filterKey,
+    })
   }
   render() {
     const {filterKey, todos, filterKeyList} = this.state
@@ -72,7 +75,7 @@ class App extends Component {
             filterKeyList={filterKeyList}
             filterKey={filterKey}
             todos={todos}
-            FBonClick={()=>this.handleFBClicked}
+            FBonClick={this.handleFBClicked.bind(this)}
             {...props} 
           />
         }

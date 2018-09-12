@@ -33,7 +33,6 @@ class TodoMain extends Component {
       'TODO': this.props.todos.filter(todo=>!todo.completed),
       'DONE': this.props.todos.filter(todo=>todo.completed)
     },
-    filterKey: this.props.filterKey,
     filterKeyList: this.props.filterKeyList,
   }
 
@@ -41,9 +40,10 @@ class TodoMain extends Component {
     this.props.history.push(`/add`);
   }
   render() {
-    const {filterList, filterKey, filterKeyList} = this.state; 
+    const {filterList, filterKeyList} = this.state; 
+    const {FBonClick, filterKey} = this.props;
     const todos = filterList[filterKey]
-    const {FBonClick} = this.props;
+    
     console.log(todos)
     return (
       <div className="App">
