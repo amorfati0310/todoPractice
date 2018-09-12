@@ -15,6 +15,7 @@ const TodoLabel = styled.label`
   font-size: 14px;
   line-height: 16px;
   color: #00ffe2;
+  margin-bottom: 10px;
 `
 
 const TodoForm = styled.form`
@@ -42,6 +43,9 @@ const TodoForm = styled.form`
     ::placeholder {
       color: #696969;
     }
+    :focus {
+      outline: none;
+    }
   }
 `
 const AddButton = styled.button`
@@ -65,28 +69,13 @@ class AddToDo extends Component {
   stopPageBack = (e)=>{
     e.stopPropagation();
   }
-  addTodo = (e) => {
-    e.preventDefault(); 
-    const input = e.target[0]
-    const todoText = input.value.trim();
-    const id = uuidv1();
-    const newTodo = {id, todoText, completed: false}
-    // e.target[0] 이런 maginNumber 말고 알아서 접근할 수 있는 방법 없나?
-    console.log(newTodo)
-    input.value = ''
-    this.props.history.push({
-      pathname: '/',
-      state: {
-       [id]: newTodo,
-      }
-    })
-  };
   render() {
+    const {onSubmit} = this.props;
     return (
       <Modal onClick={this.backToMain}>
-        <TodoForm onClick={this.stopPageBack} onSubmit={this.addTodo}>
+        <TodoForm onClick={this.stopPageBack} onSubmit={(e=>onSubmit(e, this.backToMain.bind(this)))}>
           <TodoLabel>What's next</TodoLabel>
-          <input type="text" placeholder="내일 오후 3시까지 우체국 가기"/>
+          <input type="text" placeholder="내일 오후 3시까지 우체국 가기" name="addInput"/>
           <AddButton>Add</AddButton>
         </TodoForm>
       </Modal>
