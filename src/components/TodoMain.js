@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header/Header.js';
 import Filter from './Filter/Filter.js';
 import SearchInput from './SearchInput/SearchInput.js';
-import IconButton from './IconButton/IconButton.js';
+import {FloatButton} from './IconButton/IconButton.js';
 
 import styled from "styled-components";
 
@@ -35,7 +35,7 @@ class TodoMain extends Component {
         <Filter filterList={this.state.filterList}/>
         <ContentWrapper>
          <SearchInput/>
-         <IconButton iconSrc={addIcon} onClick={this.goToAddPage}/>
+         <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
         </ContentWrapper> 
       </div>
     );
