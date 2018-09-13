@@ -61,8 +61,18 @@ class App extends Component {
       todos:this.state.todos.concat(newTodo)
     })
     // 어느 편이 좋은 패턴일까?
-    // goToMain();
-    this.goToMain();
+    goToMain();
+    // this.goToMain();
+  }
+  deleteToDo = ({target})=>{
+    const todoId = target.closest(`[name=TodoItem]`).id
+    console.log(todoId)
+    const todos = this.state.todos
+    const othersTodo = todos.filter(todo=>todo.id!==todoId)
+    this.setState({
+      todos: othersTodo,
+    })
+    console.log('delete Clicked')
   }
   goToMain(){
     this.addToDoCo.props.history.push('/')
@@ -86,6 +96,7 @@ class App extends Component {
             filterKeyList={filterKeyList}
             filterKey={filterKey}
             todos={todos}
+            deleteToDo={this.deleteToDo}
             FBonClick={this.handleFBClicked.bind(this)}
             {...props} 
           />
@@ -95,7 +106,7 @@ class App extends Component {
           exact path="/add" 
           render={(props) => 
             <AddToDo 
-               ref={(ref)=>{this.addToDoCo = ref}}
+              //  ref={(ref)=>{this.addToDoCo = ref}}
                onSubmit={(e, goToMain)=>this.handleSubmit(e,goToMain)}
               {...props} 
             />

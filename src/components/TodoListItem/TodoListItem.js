@@ -5,11 +5,14 @@ import {IconButton} from '../IconButton/IconButton.js';
 const checkIcon = require('../../assets/images/checked.svg')
 const transhIconGray = require('../../assets/images/complete-remove.png')
 const trashIconPink = require('../../assets/images/remove.png') 
+
+
 const TodoListItemEl = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
+
 
 
 
@@ -55,13 +58,18 @@ const checkButtonSize = 30;
 
 
 class TodoListItem extends Component {
+  static defaultProps = {
+    name: 'TodoItem'
+  }
   render() {
-    
-    const {todoText, id, completed, timeline} = this.props;
+    const {todoText, id, completed, timeline, deleteToDo, name} = this.props;
     const completeIcon = completed ? checkIcon : ''
     const removeIcon = completed ? trashIconPink : transhIconGray
     return (
-      <TodoListItemEl>
+      <TodoListItemEl
+        id={id}
+        name={name}
+      >
         <ContentWrapper>
           <IconButton
             completed={completed}
@@ -76,6 +84,7 @@ class TodoListItem extends Component {
           </TextWrapper>
         </ContentWrapper>
         <IconButton
+          onClick={deleteToDo}
           iconSrc={removeIcon}
           size={checkButtonSize}
         />

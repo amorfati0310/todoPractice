@@ -28,21 +28,30 @@ const TodoListWrapper = styled.ul`
 
 class TodoMain extends Component {
   state = {
-    filterList: {
-      'ALL': this.props.todos,
-      'TODO': this.props.todos.filter(todo=>!todo.completed),
-      'DONE': this.props.todos.filter(todo=>todo.completed)
-    },
+    todos: this.props.todos,
     filterKeyList: this.props.filterKeyList,
   }
-
+  static getDerivedStateFromProps(nextProps, prevState){
+    if(nextProps.todos !== prevState.todos){
+      return {todos: nextProps.todos}
+    }
+    return null;
+  }
+  getFilterList = (todoList, filterKey)=>{
+    const filterList = {
+      'ALL': todoList=>todoList,
+      'TODO': todoList=>todoList.filter(todo=>!todo.completed),
+      'DONE': todoList=>todoList.filter(todo=>todo.completed),
+    }
+    return filterList[filterKey](todoList)
+  }
   goToAddPage = ()=>{
     this.props.history.push(`/add`);
   }
   render() {
     const {filterList, filterKeyList} = this.state; 
-    const {FBonClick, filterKey} = this.props;
-    const todos = filterList[filterKey]
+    const {FBonClick, filterKey, deleteToDo, todos} = this.props;
+    const filteredTodo = this.getFilterList(todos,filterKey)
     
     console.log(todos)
     return (
@@ -56,13 +65,14 @@ class TodoMain extends Component {
          <SearchInput/>
          <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
          <TodoListWrapper>
-         {todos.map(({todoText, id, completed, timeline})=>(
+         {filteredTodo.map(({todoText, id, completed, timeline})=>(
           <TodoListItem
             key={id}
             id={id}
             todoText={todoText}
             completed={completed}
             timeline={timeline}
+            deleteToDo={deleteToDo}
           />
           ))}
          </TodoListWrapper>
