@@ -27,6 +27,11 @@ const GlobalStyles = injectGlobal`
     p {
       margin: 0;
     }
+    input {
+      :focus {
+        outline: none;
+      }
+    }
 `
 
 
@@ -55,9 +60,15 @@ class App extends Component {
     this.setState({
       todos:this.state.todos.concat(newTodo)
     })
-    goToMain();
+    // 어느 편이 좋은 패턴일까?
+    // goToMain();
+    this.goToMain();
+  }
+  goToMain(){
+    this.addToDoCo.props.history.push('/')
   }
   handleFBClicked = ({target})=>{
+    // Text처럼 자주 변경되는 것으로 하는 것은 별로 안 좋지만 기존에 그 Text자체가 filterList랑 동일하니까 괜찮은 듯 
     const filterKey = target.innerText
     this.setState({
       filterKey,
@@ -80,10 +91,11 @@ class App extends Component {
           />
         }
         />
-        <Route 
+        <Route   
           exact path="/add" 
           render={(props) => 
             <AddToDo 
+               ref={(ref)=>{this.addToDoCo = ref}}
                onSubmit={(e, goToMain)=>this.handleSubmit(e,goToMain)}
               {...props} 
             />

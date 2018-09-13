@@ -75,7 +75,12 @@ class AddToDo extends Component {
       <Modal onClick={this.backToMain}>
         <TodoForm onClick={this.stopPageBack} onSubmit={(e=>onSubmit(e, this.backToMain.bind(this)))}>
           <TodoLabel>What's next</TodoLabel>
-          <input type="text" placeholder="내일 오후 3시까지 우체국 가기" name="addInput"/>
+          <input 
+            autoFocus={true}
+            type="text" 
+            placeholder="내일 오후 3시까지 우체국 가기" 
+            name="addInput"
+          />
           <AddButton>Add</AddButton>
         </TodoForm>
       </Modal>

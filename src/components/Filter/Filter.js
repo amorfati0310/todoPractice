@@ -65,7 +65,9 @@ class Filter extends Component {
       <Wrapper>
         <FilterEl>
           {filterKeyList.map((filterKey,i)=>(
-            <li key={i}>
+            <li 
+              key={i}
+            >
               <button onClick={FBonClick}>{filterKey}</button>
             </li>
           ))} 
