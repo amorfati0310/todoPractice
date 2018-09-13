@@ -62,7 +62,7 @@ class TodoListItem extends Component {
     name: 'TodoItem'
   }
   render() {
-    const {todoText, id, completed, timeline, deleteToDo, name} = this.props;
+    const {todoText, id, completed, timeline, deleteToDo, updateCompleted, name} = this.props;
     const completeIcon = completed ? checkIcon : ''
     const removeIcon = completed ? trashIconPink : transhIconGray
     return (
@@ -72,6 +72,7 @@ class TodoListItem extends Component {
       >
         <ContentWrapper>
           <IconButton
+            onClick={updateCompleted}
             completed={completed}
             background={checkButtonBackground}
             iconSrc={completeIcon}

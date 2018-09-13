@@ -8,8 +8,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  padding-left: 25px;
-  padding-right: 25px;
 `
 
 const FilterEl = styled.ul`

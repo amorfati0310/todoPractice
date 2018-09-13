@@ -50,32 +50,33 @@ class TodoMain extends Component {
   }
   render() {
     const {filterList, filterKeyList} = this.state; 
-    const {FBonClick, filterKey, deleteToDo, todos} = this.props;
+    const {FBonClick, filterKey, deleteToDo, todos, updateCompleted} = this.props;
     const filteredTodo = this.getFilterList(todos,filterKey)
     
     console.log(todos)
     return (
       <div className="App">
         <Header/>
-        <Filter 
-          filterKeyList={filterKeyList}
-          FBonClick={FBonClick}
-        />
         <ContentWrapper>
-         <SearchInput/>
-         <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
-         <TodoListWrapper>
-         {filteredTodo.map(({todoText, id, completed, timeline})=>(
-          <TodoListItem
-            key={id}
-            id={id}
-            todoText={todoText}
-            completed={completed}
-            timeline={timeline}
-            deleteToDo={deleteToDo}
+          <Filter 
+              filterKeyList={filterKeyList}
+              FBonClick={FBonClick}
           />
-          ))}
-         </TodoListWrapper>
+          <SearchInput/>
+          <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
+          <TodoListWrapper>
+            {filteredTodo.map(({todoText, id, completed, timeline})=>(
+              <TodoListItem
+                key={id}
+                id={id}
+                todoText={todoText}
+                completed={completed}
+                timeline={timeline}
+                deleteToDo={deleteToDo}
+                updateCompleted={updateCompleted}
+              />))
+            }
+          </TodoListWrapper>
         </ContentWrapper> 
       </div>
     );

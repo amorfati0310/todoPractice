@@ -12,6 +12,9 @@ class TodoModel  {
   updateTodoComplete(completed){
     this.completed = completed;
   }
+  toggleComplete(){
+    this.completed = !this.completed;
+  }
 }
 
 export default TodoModel;
