@@ -9,4 +9,30 @@ const ToggleIconButton = ({active, activeSrc, deactiveSrc, onClick}) => {
   );
 };
 
-export default ToggleButton;
+
+
+
+class ToggleButton extends Component {
+  state = {on: false}
+  toggle = () => {
+    this.setState(
+      currentState => ({on: !currentState.on}),
+      ()=>{
+        this.props.onToggle(this.state.on)
+      }
+    )
+  }
+  render() {
+    return (
+      <div>
+        
+      </div>
+    );
+  }
+}
+
+
+
+
+
+// export default ToggleButton;

@@ -34,20 +34,22 @@ const GlobalStyles = injectGlobal`
     }
 `
 
+const initialState = {
+  todos: [
+    new TodoModel('티티 간식 주기'),
+    new TodoModel('티티 털 벗겨주기'),
+    new TodoModel('둔둔이 챱챱'),
+    new TodoModel('둔둔이 산책시키기'),
+    new TodoModel('둔둔이 뭉친털 자르기'),
+    new TodoModel('둔둔이 냠냠이 주기'),
+  ],
+  filterKey: 'ALL',
+  filterKeyList: ['ALL','TODO','DONE'],
+}
 
 class App extends Component {
-  state = {
-    todos: [
-      {id: '1', todoText: '티티 간식 주기',completed: false, timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'},
-      {id: '2', todoText: '티티 털 벗겨주기',completed: false, timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'},
-      {id: '3', todoText: '둔둔이 챱챱',completed: true,  timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'},
-      {id: '4', todoText: '둔둔이 산책시키기 ',completed: true, timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'},
-      {id: '5', todoText: '둔둔이 뭉친털 자르기',completed: true, timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'},
-      {id: '6', todoText: '둔둔이 냠냠이 주기 ',completed: true, timeline: '2018-09-09 18:00 ~ 2018-09-09 19:00'}
-    ],
-    filterKey: 'ALL',
-    filterKeyList: ['ALL','TODO','DONE'],
-  }
+  state = initialState
+
   handleSubmit = (e,goToMain) => {
     e.preventDefault(); 
     const input = e.target.elements.addInput
@@ -96,6 +98,7 @@ class App extends Component {
   render() {
     const {filterKey, todos, filterKeyList} = this.state
     return (
+    
     <BrowserRouter>
       <Switch>
         <Route 
