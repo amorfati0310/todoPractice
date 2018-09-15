@@ -63,8 +63,11 @@ class App extends Component {
     goToMain();
    
   }
+  getTodoId(el){
+    return el.closest(`[name=TodoItem]`).id
+  }
   deleteToDo = ({target})=>{
-    const todoId = target.closest(`[name=TodoItem]`).id
+    const todoId = this.getTodoId(target)
     const todos = this.state.todos
     const othersTodo = todos.filter(todo=>todo.id!==todoId)
     this.setState({
@@ -72,7 +75,7 @@ class App extends Component {
     })
   }
   updateCompleted = ({target})=>{
-    const todoId = target.closest(`[name=TodoItem]`).id
+    const todoId = this.getTodoId(target)
     const todos = this.state.todos
     const updateOne = todos.find(todo=>todo.id===todoId)
     updateOne.toggleComplete()
