@@ -62,7 +62,7 @@ class App extends Component {
   }
   deleteToDo = ({target})=>{
     const todoId = this.getTodoId(target)
-    const todos = this.state.todos
+    const {todos} = this.state;
     const othersTodo = todos.filter(todo=>todo.id!==todoId)
     this.setState({
       todos: othersTodo,
@@ -70,7 +70,7 @@ class App extends Component {
   }
   updateCompleted = ({target})=>{
     const todoId = this.getTodoId(target)
-    const todos = this.state.todos
+    const {todos} = this.state
     const updateOne = todos.find(todo=>todo.id===todoId)
     updateOne.toggleComplete()
     this.setState({
@@ -78,7 +78,7 @@ class App extends Component {
     })
   }
   uppdateText = (id, todoText)=>{
-    const todos = this.state.todos
+    const {todos} = this.state
     const updateTodo = todos.find(todo=>todo.id===id)
     updateTodo.updateTodoText(todoText)
     this.setState({

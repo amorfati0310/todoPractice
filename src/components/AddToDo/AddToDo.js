@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
-import uuidv1 from 'uuid/v1';
+
 
 const Modal = styled.div`
   position: fixed;

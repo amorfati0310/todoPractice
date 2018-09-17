@@ -42,15 +42,13 @@ class TodoMain extends Component {
       'DONE': todoList=>todoList.filter(todo=>todo.completed),
     }
     const filterBarKeyAdapted =filterList[filterKey](todoList)
-    if(searchText){
-      return filterBarKeyAdapted.filter(({todoText})=>todoText.indexOf(searchText)!==-1)
-    }
+    if(searchText) return filterBarKeyAdapted.filter(({todoText})=>todoText.indexOf(searchText)!==-1)
     else return filterBarKeyAdapted
   }
   goToAddPage = ()=>{
     this.props.history.push(`/add`);
   }
-  hanldeSearchSubmit = (e)=>{  
+  handleSearchSubmit = (e)=>{  
     e.preventDefault()
     const searchText = e.target.elements.searchInput.value
     this.setState({
@@ -59,7 +57,6 @@ class TodoMain extends Component {
     e.target.elements.searchInput.value = ""
   }
   handleFBClicked = ({target})=>{
-    // Text처럼 자주 변경되는 것으로 검출 하는 것은 별로 안 좋지만 기존에 그 Text자체가 filterList랑 동일하니까 괜찮은 듯 
     const filterKey = target.innerText
     this.setState({
       filterKey,
@@ -79,7 +76,7 @@ class TodoMain extends Component {
             FBonClick={this.handleFBClicked}
             toggleSortTodoList={toggleSortTodoList}
           />
-          <SearchForm onSubmit={this.hanldeSearchSubmit}/>
+          <SearchForm onSubmit={this.handleSearchSubmit}/>
           <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
           <TodoListWrapper>
              {filteredTodo.map(({todoText, id, completed, timeline})=>(

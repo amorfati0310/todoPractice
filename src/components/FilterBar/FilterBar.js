@@ -57,7 +57,14 @@ const FilterEl = styled.ul`
 const sortSize = 40;
 
 class FilterBar extends Component {
+  state = {
+    activeIdx:0, 
+  }
+  handleFilter = ()=> {
+
+  }
   render() {
+    const { activeIdx } = this.state;
     const {FBonClick, filterKeyList, toggleSortTodoList} = this.props;
     return (
       <Wrapper>
@@ -66,7 +73,10 @@ class FilterBar extends Component {
             <li 
               key={i}
             >
-              <button onClick={FBonClick}>{filterKey}</button>
+              <button 
+                onClick={FBonClick}>
+                {filterKey}
+              </button>
             </li>
           ))} 
         </FilterEl>
