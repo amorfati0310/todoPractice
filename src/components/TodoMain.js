@@ -28,17 +28,10 @@ const TodoListWrapper = styled.ul`
 
 class TodoMain extends Component {
   state = {
-    todos: this.props.todos,
     filterKeyList: this.props.filterKeyList,
     isEdit: false,
     searchText: '',
   }
-  // static getDerivedStateFromProps(nextProps, prevState){
-  //   if(nextProps.todos !== prevState.todos){
-  //     return {todos: nextProps.todos}
-  //   }
-  //   return null;
-  // }
   getFilterList = (todoList, filterKey, searchText)=>{
     const filterList = {
       'ALL': todoList=>todoList,
