@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Header from './Header/Header.js';
-import Filter from './Filter/Filter.js';
-import SearchInput from './SearchInput/SearchInput.js';
+import FilterBar from './FilterBar/FilterBar.js';
+import SearchForm from './SearchForm/SearchForm.js';
 import TodoListItem from './TodoListItem/TodoListItem'
 import {FloatButton} from './IconButton/IconButton.js';
-
+import Filter from './Filter/Filter.js';
 
 import styled from "styled-components";
 
@@ -31,43 +31,57 @@ class TodoMain extends Component {
     todos: this.props.todos,
     filterKeyList: this.props.filterKeyList,
     isEdit: false,
+    searchText: '',
   }
-  static getDerivedStateFromProps(nextProps, prevState){
-    if(nextProps.todos !== prevState.todos){
-      return {todos: nextProps.todos}
-    }
-    return null;
-  }
-  getFilterList = (todoList, filterKey)=>{
+  // static getDerivedStateFromProps(nextProps, prevState){
+  //   if(nextProps.todos !== prevState.todos){
+  //     return {todos: nextProps.todos}
+  //   }
+  //   return null;
+  // }
+  getFilterList = (todoList, filterKey, searchText)=>{
     const filterList = {
       'ALL': todoList=>todoList,
       'TODO': todoList=>todoList.filter(todo=>!todo.completed),
       'DONE': todoList=>todoList.filter(todo=>todo.completed),
     }
-    return filterList[filterKey](todoList)
+    const filterBarKeyAdapted =filterList[filterKey](todoList)
+    if(searchText){
+      return filterBarKeyAdapted.filter(({todoText})=>todoText.indexOf(searchText)!==-1)
+    }
+    else return filterBarKeyAdapted
   }
   goToAddPage = ()=>{
     this.props.history.push(`/add`);
   }
+  hanldeSearchSubmit = (e)=>{  
+    e.preventDefault()
+    const searchText = e.target.elements.searchInput.value
+    this.setState({
+      searchText,
+    })
+    e.target.elements.searchInput.value = ""
+  }
+
+  
  
   render() {
-    const {filterList, filterKeyList, isEdit} = this.state; 
-    const {FBonClick, filterKey, deleteToDo, todos, updateCompleted, updateText} = this.props;
-    const filteredTodo = this.getFilterList(todos,filterKey)
-    
-    console.log(todos)
+    const {filterList, filterKeyList, isEdit, searchText} = this.state; 
+    const {FBonClick, filterKey, deleteToDo, todos, updateCompleted, updateText, toggleSortTodoList} = this.props;
+    const filteredTodo = this.getFilterList(todos,filterKey, searchText)
     return (
       <div className="App">
         <Header/>
         <ContentWrapper>
-          <Filter 
-              filterKeyList={filterKeyList}
-              FBonClick={FBonClick}
+          <FilterBar
+            filterKeyList={filterKeyList}
+            FBonClick={FBonClick}
+            toggleSortTodoList={toggleSortTodoList}
           />
-          <SearchInput/>
+          <SearchForm onSubmit={this.hanldeSearchSubmit}/>
           <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
           <TodoListWrapper>
-            {filteredTodo.map(({todoText, id, completed, timeline})=>(
+             {filteredTodo.map(({todoText, id, completed, timeline})=>(
               <TodoListItem
                 key={id}
                 id={id}

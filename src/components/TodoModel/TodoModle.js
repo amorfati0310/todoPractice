@@ -6,6 +6,8 @@ class TodoModel  {
     this.completed = false;
     this.date = new Date();
     this.timeline = '2018-09-09 18:00 ~ 2018-09-09 19:00'
+    this.startTime = null;
+    this.endTime = null;
   }
   updateTodoText(todoText){
     this.todoText = todoText;
@@ -15,6 +17,9 @@ class TodoModel  {
   }
   toggleComplete(){
     this.completed = !this.completed;
+  }
+  setStartTime(startTime){
+   this.startTime = startTime;
   }
 }
 

@@ -32,17 +32,30 @@ const SearchButton = styled.button`
 `
 
 
-class SearchInput extends Component {
+class SearchForm extends Component {
+  state = {
+    searchText: '',
+  }
+  updateSearchText = ({target: {value}})=>{
+    this.setState({
+      searchText: value
+    })
+  }
   render() {
+    const {onSubmit} = this.props;
     return (
-      <FormWrapper>
+      <FormWrapper onSubmit={onSubmit}>
         <SearchButton>
           <img src={searchIcon} alt=""/>
         </SearchButton>
-        <StyledInput type="text" placeholder="Search for tasks"/>
+        <StyledInput 
+          name="searchInput"
+          type="text" placeholder="Search for Tasks"
+          onChange={this.updateSearchText}
+        />
       </FormWrapper>
     );
   }
 }
 
-export default SearchInput;
+export default SearchForm;

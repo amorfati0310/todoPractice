@@ -4,7 +4,7 @@ import TodoMain from "./TodoMain";
 import AddToDo from './AddToDo/AddToDo.js';
 import styled, {injectGlobal} from "styled-components";
 import TodoModel from './TodoModel/TodoModle.js';
-
+import mockTodoList from './mockTodoList';
 
 const GlobalStyles = injectGlobal`
     body {
@@ -35,16 +35,10 @@ const GlobalStyles = injectGlobal`
 `
 
 const initialState = {
-  todos: [
-    new TodoModel('티티 간식 주기'),
-    new TodoModel('티티 털 벗겨주기'),
-    new TodoModel('둔둔이 챱챱'),
-    new TodoModel('둔둔이 산책시키기'),
-    new TodoModel('둔둔이 뭉친털 자르기'),
-    new TodoModel('둔둔이 냠냠이 주기'),
-  ],
+  todos: mockTodoList,
   filterKey: 'ALL',
   filterKeyList: ['ALL','TODO','DONE'],
+  isAscending:  true,
 }
 
 class App extends Component {
@@ -97,10 +91,28 @@ class App extends Component {
     this.addToDoCo.props.history.push('/')
   }
   handleFBClicked = ({target})=>{
-    // Text처럼 자주 변경되는 것으로 하는 것은 별로 안 좋지만 기존에 그 Text자체가 filterList랑 동일하니까 괜찮은 듯 
+    // Text처럼 자주 변경되는 것으로 검출 하는 것은 별로 안 좋지만 기존에 그 Text자체가 filterList랑 동일하니까 괜찮은 듯 
     const filterKey = target.innerText
     this.setState({
       filterKey,
+    })
+  }
+  toggleSortTodoList = ()=>{
+    const { isAscending, todos } = this.state;
+    const orderFactor = isAscending ? 1: -1;
+
+    const sorted =[...todos].sort((a,b)=>{
+      if (a.startTime > b.startTime) {
+        return orderFactor;
+      }
+      if (a.startTime < b.startTime) {
+        return -orderFactor;
+      }
+      return 0;
+    });
+    this.setState({
+      todos: sorted,
+      isAscending: !isAscending
     })
   }
 
@@ -114,6 +126,7 @@ class App extends Component {
           exact path="/" 
           render={(props) => 
           <TodoMain 
+            toggleSortTodoList={this.toggleSortTodoList}
             filterKeyList={filterKeyList}
             filterKey={filterKey}
             todos={todos}
