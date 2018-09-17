@@ -4,7 +4,7 @@ import FilterBar from './FilterBar/FilterBar.js';
 import SearchForm from './SearchForm/SearchForm.js';
 import TodoListItem from './TodoListItem/TodoListItem'
 import {FloatButton} from './IconButton/IconButton.js';
-import Filter from './Filter/Filter.js';
+
 
 import styled from "styled-components";
 

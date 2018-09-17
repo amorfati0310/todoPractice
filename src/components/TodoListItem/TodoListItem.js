@@ -81,7 +81,7 @@ class TodoListItem extends Component {
     todoText: this.props.todoText,
     
   }
-  eidtItem = ()=> {
+  editItem = ()=> {
     this.setState({isEdit: true})
   }
   updateTodoText = (e)=> {
@@ -90,15 +90,12 @@ class TodoListItem extends Component {
     })
   }
   handleEditSubmit = (e)=> {
-    if(e.key==="Enter"){
-      this.props.updateText(this.props.id,this.state.todoText)
-      this.setState({
-        isEdit: false
-      })
-    } 
+    if(e.key==="Enter") return this.notifyUpdateText(); 
   }
-  notifyUpdateText = (id,updateTextFn)=> {
-    updateTextFn(id,this.state.todoText)
+  notifyUpdateText = ()=> {
+    const {id, updateText} = this.props
+    const {todoText} = this.state;
+    updateText(id,todoText)
     this.setState({
       isEdit: false
     })
@@ -111,7 +108,7 @@ class TodoListItem extends Component {
       <TodoListItemEl
         id={id}
         name={name}
-        onDoubleClick={this.eidtItem}
+        onDoubleClick={this.editItem}
       >
         <ContentWrapper>
           <IconButton
@@ -131,16 +128,13 @@ class TodoListItem extends Component {
                   type="text"
                   value={this.state.todoText}
                   onChange={this.updateTodoText}
-                  onBlur={()=>this.notifyUpdateText(id,updateText)}
+                  onBlur={()=>this.notifyUpdateText()}
                   onKeyPress={(e)=>this.handleEditSubmit(e)}
                 />
                 }
               </TodoItemInputWrapper>
               <TodoTimeLine completed={completed}>{timeline}</TodoTimeLine>
             </TextWrapper>
-            
-         
-          
         </ContentWrapper>
         <IconButton
           onClick={deleteToDo}
