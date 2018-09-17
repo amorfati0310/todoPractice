@@ -36,8 +36,6 @@ const GlobalStyles = injectGlobal`
 
 const initialState = {
   todos: mockTodoList,
-  filterKey: 'ALL',
-  filterKeyList: ['ALL','TODO','DONE'],
   isAscending:  true,
 }
 
@@ -90,13 +88,7 @@ class App extends Component {
   goToMain(){
     this.addToDoCo.props.history.push('/')
   }
-  handleFBClicked = ({target})=>{
-    // Text처럼 자주 변경되는 것으로 검출 하는 것은 별로 안 좋지만 기존에 그 Text자체가 filterList랑 동일하니까 괜찮은 듯 
-    const filterKey = target.innerText
-    this.setState({
-      filterKey,
-    })
-  }
+
   toggleSortTodoList = ()=>{
     const { isAscending, todos } = this.state;
     const orderFactor = isAscending ? 1: -1;
@@ -127,12 +119,9 @@ class App extends Component {
           render={(props) => 
           <TodoMain 
             toggleSortTodoList={this.toggleSortTodoList}
-            filterKeyList={filterKeyList}
-            filterKey={filterKey}
             todos={todos}
             deleteToDo={this.deleteToDo}
             updateCompleted={this.updateCompleted}
-            FBonClick={this.handleFBClicked.bind(this)}
             updateText={(id,todoText)=>this.uppdateText(id,todoText)}
             {...props} 
           />

@@ -28,9 +28,12 @@ const TodoListWrapper = styled.ul`
 
 class TodoMain extends Component {
   state = {
-    filterKeyList: this.props.filterKeyList,
     isEdit: false,
     searchText: '',
+    filterKey: 'ALL',
+  }
+  static defaultProps = {
+    filterKeyList: ['ALL','TODO','DONE'],
   }
   getFilterList = (todoList, filterKey, searchText)=>{
     const filterList = {
@@ -55,12 +58,17 @@ class TodoMain extends Component {
     })
     e.target.elements.searchInput.value = ""
   }
+  handleFBClicked = ({target})=>{
+    // Text처럼 자주 변경되는 것으로 검출 하는 것은 별로 안 좋지만 기존에 그 Text자체가 filterList랑 동일하니까 괜찮은 듯 
+    const filterKey = target.innerText
+    this.setState({
+      filterKey,
+    })
+  }
 
-  
- 
   render() {
-    const {filterList, filterKeyList, isEdit, searchText} = this.state; 
-    const {FBonClick, filterKey, deleteToDo, todos, updateCompleted, updateText, toggleSortTodoList} = this.props;
+    const {filterList, isEdit, searchText, filterKey} = this.state; 
+    const {FBonClick,filterKeyList, deleteToDo, todos, updateCompleted, updateText, toggleSortTodoList} = this.props;
     const filteredTodo = this.getFilterList(todos,filterKey, searchText)
     return (
       <div className="App">
@@ -68,7 +76,7 @@ class TodoMain extends Component {
         <ContentWrapper>
           <FilterBar
             filterKeyList={filterKeyList}
-            FBonClick={FBonClick}
+            FBonClick={this.handleFBClicked}
             toggleSortTodoList={toggleSortTodoList}
           />
           <SearchForm onSubmit={this.hanldeSearchSubmit}/>
