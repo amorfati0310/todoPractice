@@ -85,6 +85,14 @@ class App extends Component {
       todos,
     })
   }
+  uppdateText = (id, todoText)=>{
+    const todos = this.state.todos
+    const updateTodo = todos.find(todo=>todo.id===id)
+    updateTodo.updateTodoText(todoText)
+    this.setState({
+      todos,
+    })
+  }
   goToMain(){
     this.addToDoCo.props.history.push('/')
   }
@@ -95,6 +103,7 @@ class App extends Component {
       filterKey,
     })
   }
+
   render() {
     const {filterKey, todos, filterKeyList} = this.state
     return (
@@ -111,6 +120,7 @@ class App extends Component {
             deleteToDo={this.deleteToDo}
             updateCompleted={this.updateCompleted}
             FBonClick={this.handleFBClicked.bind(this)}
+            updateText={(id,todoText)=>this.uppdateText(id,todoText)}
             {...props} 
           />
         }

@@ -30,6 +30,7 @@ class TodoMain extends Component {
   state = {
     todos: this.props.todos,
     filterKeyList: this.props.filterKeyList,
+    isEdit: false,
   }
   static getDerivedStateFromProps(nextProps, prevState){
     if(nextProps.todos !== prevState.todos){
@@ -48,9 +49,10 @@ class TodoMain extends Component {
   goToAddPage = ()=>{
     this.props.history.push(`/add`);
   }
+ 
   render() {
-    const {filterList, filterKeyList} = this.state; 
-    const {FBonClick, filterKey, deleteToDo, todos, updateCompleted} = this.props;
+    const {filterList, filterKeyList, isEdit} = this.state; 
+    const {FBonClick, filterKey, deleteToDo, todos, updateCompleted, updateText} = this.props;
     const filteredTodo = this.getFilterList(todos,filterKey)
     
     console.log(todos)
@@ -74,6 +76,7 @@ class TodoMain extends Component {
                 timeline={timeline}
                 deleteToDo={deleteToDo}
                 updateCompleted={updateCompleted}
+                updateText={updateText}
               />))
             }
           </TodoListWrapper>
