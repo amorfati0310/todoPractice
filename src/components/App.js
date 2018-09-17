@@ -63,7 +63,7 @@ class App extends Component {
   deleteToDo = ({target})=>{
     const todoId = this.getTodoId(target)
     const {todos} = this.state;
-    const othersTodo = todos.filter(todo=>todo.id!==todoId)
+    const othersTodo = todos.filter(({id})=>id!==todoId)
     this.setState({
       todos: othersTodo,
     })
@@ -71,7 +71,7 @@ class App extends Component {
   updateCompleted = ({target})=>{
     const todoId = this.getTodoId(target)
     const {todos} = this.state
-    const updateOne = todos.find(todo=>todo.id===todoId)
+    const updateOne = todos.find(({id})=>id===todoId)
     updateOne.toggleComplete()
     this.setState({
       todos,
@@ -91,17 +91,12 @@ class App extends Component {
 
   toggleSortTodoList = ()=>{
     const { isAscending, todos } = this.state;
-    const orderFactor = isAscending ? 1: -1;
-
-    const sorted =[...todos].sort((a,b)=>{
-      if (a.startTime > b.startTime) {
-        return orderFactor;
-      }
-      if (a.startTime < b.startTime) {
-        return -orderFactor;
-      }
-      return 0;
-    });
+    const orderFactor = isAscending ? 'ascend': 'descend';
+    const orderFn = {
+      'ascend': (a,b)=>a.startTime > b.startTime,
+      'descend': (a,b)=>a.startTime < b.startTime
+    }
+    const sorted =[...todos].sort(orderFn[orderFactor]);
     this.setState({
       todos: sorted,
       isAscending: !isAscending
