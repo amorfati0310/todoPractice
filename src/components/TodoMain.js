@@ -4,9 +4,17 @@ import FilterBar from './FilterBar.js';
 import SearchForm from './SearchForm.js';
 import TodoListItem from './TodoListItem'
 import {FloatButton} from './IconButton.js';
+import styled, {keyframes} from "styled-components";
 
+const spin = keyframes`{
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}`
 
-import styled from "styled-components";
 
 const ContentWrapper = styled.div`
   box-sizing: border-box;
@@ -55,10 +63,9 @@ class TodoMain extends Component {
     })
     e.target.elements.searchInput.value = ""
   }
-  handleFBClicked = ({target})=>{
-    const filterKey = target.innerText
+  handleFBClicked = (filterKey)=>{
     this.setState({
-      filterKey,
+      filterKey
     })
   }
 
@@ -76,7 +83,7 @@ class TodoMain extends Component {
             toggleSortTodoList={toggleSortTodoList}
           />
           <SearchForm onSubmit={this.handleSearchSubmit}/>
-          <FloatButton iconSrc={addIcon} onClick={this.goToAddPage}/>
+          <FloatButton iconSrc={addIcon} onClick={this.goToAddPage} />
           <TodoListWrapper>
              {filteredTodo.map(({todoText, id, completed, timeline})=>(
               <TodoListItem

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { IconButton } from './IconButton';
 const arrowUpDown = require('../assets/images/up-down.svg')
 
@@ -11,47 +11,51 @@ const Wrapper = styled.div`
 `
 
 const FilterEl = styled.ul`
+  
   display: flex;
   align-items: center;
   height: 50px;
   margin: 0;
   padding-left: 0;
-  & li {
+
+`
+
+const FilterListItem = styled.li`
     display: flex;
     font-family: SFCompactText;
     font-size: 16px;
     font-weight: 300;
     line-height: 1.2;
     text-align: left;
-    color: #b8b8b8;
-  
-    button {
+   
+    & button {
+      position: relative;
       padding: 10px;
       height: 50px;
       margin-right: 15px;
+      color: #b8b8b8;
+      ${props =>props.active && css`
+        color: #000;
+      `}
       &::before {
-      bottom: 0px;
-      left: 0;
-      right: 100%;
-      background: #222;
-      content: "";
-      box-sizing: border-box;
-      margin-left: 10px;
-      margin-right: 10px;
-      position: absolute;
-      transition: all 0.2s ease-in-out;
-      z-index: 100;
-      height: 3px;
+        bottom: 3px;
+        left: 0;
+        right: 100%;
+        background: #000;
+        content: "";
+        box-sizing: content-box;
+        position: absolute;
+        transition: all 0.2s ease-in-out;
+        z-index: 100;
+        height: 2px;
+      }
       &:hover {
-        color: #222;
+        color: #000;
         ::before {
-          right: 0;
+        right: 0;
         }
       }
     }
- 
-  }
-}
 `
 
 const sortSize = 40;
@@ -60,24 +64,34 @@ class FilterBar extends Component {
   state = {
     activeIdx:0, 
   }
-  handleFilter = ()=> {
-
+  handleFilter = ({target})=> {
+    const {FBonClick} = this.props;
+    const filterText = {
+      ALL: 0,
+      TODO: 1,
+      DONE: 2,
+    };
+    this.setState({
+      activeIdx: filterText[target.innerText]
+    })
+    FBonClick(target.innerText);
   }
   render() {
     const { activeIdx } = this.state;
-    const {FBonClick, filterKeyList, toggleSortTodoList} = this.props;
+    const { filterKeyList, toggleSortTodoList} = this.props;
     return (
       <Wrapper>
         <FilterEl>
           {filterKeyList.map((filterKey,i)=>(
-            <li 
+            <FilterListItem
+              active={activeIdx===i} 
               key={i}
             >
               <button 
-                onClick={FBonClick}>
+                onClick={this.handleFilter}>
                 {filterKey}
               </button>
-            </li>
+            </FilterListItem>
           ))} 
         </FilterEl>
         <IconButton onClick={toggleSortTodoList} iconSrc={arrowUpDown} size={sortSize}/>

@@ -6,6 +6,7 @@ const searchIcon = require('../assets/images/search-icon.svg')
 const FormWrapper = styled.form `
    position: relative;
    box-sizing: border-box;
+   margin-top: 16px;
 `
 
 const StyledInput = styled.input`
@@ -50,7 +51,8 @@ class SearchForm extends Component {
         </SearchButton>
         <StyledInput 
           name="searchInput"
-          type="text" placeholder="Search for Tasks"
+          type="text" 
+          placeholder="Search for Tasks"
           onChange={this.updateSearchText}
         />
       </FormWrapper>

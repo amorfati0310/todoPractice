@@ -8,7 +8,8 @@ const IconButtonEl = styled.button`
   height: ${props => props.size+'px'};
   ${props =>props.circle && css`
       border-radius: 50%;
-      border: 1px solid #eee`}
+      border: 1px solid #eee
+  `}
   ${props =>props.completed && css`
       background: ${props.background};
   `}
@@ -29,6 +30,11 @@ const FloatButtonEl  = styled(IconButtonEl)`
     left: 0;
     max-width: 100%;
   }
+  /* &:hover {
+    ${props =>props.animation && css`
+      animation: ${props.anmiation} 1s linear ease-in-out;
+  `} */
+  }
 `
 
 
@@ -48,9 +54,9 @@ const IconButton = ({iconSrc, onClick, size=defaultSize, style, background="tran
     </IconButtonEl>
   );
 };
-const FloatButton = ({iconSrc, onClick, size=defaultSize}) => {
+const FloatButton = ({iconSrc, onClick, size=defaultSize, }) => {
   return (
-    <FloatButtonEl onClick={onClick} size={size}>
+    <FloatButtonEl onClick={onClick} size={size} >
       <img src={iconSrc} alt=""/>
     </FloatButtonEl>
   );
