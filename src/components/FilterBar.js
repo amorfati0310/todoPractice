@@ -50,7 +50,7 @@ const FilterListItem = styled.li`
         height: 2px;
       }
       &:hover {
-        color: ${({theme: mainFontColor})=>mainFontColor};
+        color: #000;
         ::before {
         right: 0;
         }
