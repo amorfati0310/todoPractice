@@ -37,15 +37,28 @@ class SearchForm extends Component {
   state = {
     searchText: '',
   }
-  updateSearchText = ({target: {value}})=>{
+  handleSubmit = (e)=>{
+    const {getSearchText} = this.props;
+    e.preventDefault()
+    const searchInput = e.target.elements.searchInput;
+    let searchText = searchInput.value.trim()
     this.setState({
-      searchText: value
+      searchText,
     })
+    getSearchText(searchText)
+    searchText = ""
+  }
+  updateSearchText = ({target: {value}})=>{
+    const {getSearchText} = this.props;
+    const filterText = value.trim()
+    this.setState({
+      searchText: filterText
+    })
+    getSearchText(filterText)
   }
   render() {
-    const {onSubmit} = this.props;
     return (
-      <FormWrapper onSubmit={onSubmit}>
+      <FormWrapper onSubmit={this.handleSubmit}>
         <SearchButton>
           <img src={searchIcon} alt=""/>
         </SearchButton>

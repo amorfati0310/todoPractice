@@ -4,16 +4,16 @@ import FilterBar from './FilterBar.js';
 import SearchForm from './SearchForm.js';
 import TodoListItem from './TodoListItem'
 import {FloatButton} from './IconButton.js';
-import styled, {keyframes} from "styled-components";
+import styled from "styled-components";
 
-const spin = keyframes`{
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}`
+// const spin = keyframes`{
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }`
 
 
 const ContentWrapper = styled.div`
@@ -49,19 +49,16 @@ class TodoMain extends Component {
       'DONE': todoList=>todoList.filter(todo=>todo.completed),
     }
     const filterBarKeyAdapted =filterList[filterKey](todoList)
-    if(searchText) return filterBarKeyAdapted.filter(({todoText})=>todoText.indexOf(searchText)!==-1)
+    if(searchText) return filterBarKeyAdapted.filter(({todoText})=>todoText.includes(searchText))
     else return filterBarKeyAdapted
   }
   goToAddPage = ()=>{
     this.props.history.push(`/add`);
   }
-  handleSearchSubmit = (e)=>{  
-    e.preventDefault()
-    const searchText = e.target.elements.searchInput.value
+  getSearchText = (searchText)=>{
     this.setState({
-      searchText,
+      searchText
     })
-    e.target.elements.searchInput.value = ""
   }
   handleFBClicked = (filterKey)=>{
     this.setState({
@@ -82,7 +79,7 @@ class TodoMain extends Component {
             FBonClick={this.handleFBClicked}
             toggleSortTodoList={toggleSortTodoList}
           />
-          <SearchForm onSubmit={this.handleSearchSubmit}/>
+          <SearchForm getSearchText={this.getSearchText} onSubmit={this.handleSearchSubmit}/>
           <FloatButton iconSrc={addIcon} onClick={this.goToAddPage} />
           <TodoListWrapper>
              {filteredTodo.map(({todoText, id, completed, timeline})=>(

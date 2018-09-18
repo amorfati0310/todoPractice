@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import TodoMain from "./TodoMain";
 import AddToDo from './AddToDo.js';
-import styled from "styled-components";
+
 import TodoModel from './TodoModel.js';
 import mockTodoList from './mockTodoList';
 
@@ -51,9 +51,9 @@ class App extends Component {
       todos,
     })
   }
-  uppdateText = (id, todoText)=>{
-    const {todos} = this.state
-    const updateTodo = todos.find(({id})=>id===id)
+  uppdateText = (todoId, todoText)=>{
+    const todos = [...this.state.todos]
+    const updateTodo = todos.find(({id})=>id===todoId)
     updateTodo.updateTodoText(todoText)
     this.setState({
       todos,

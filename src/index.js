@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled, {injectGlobal, ThemeProvider} from "styled-components";
+import  {injectGlobal, ThemeProvider} from "styled-components";
 import App from './components/App.js';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
