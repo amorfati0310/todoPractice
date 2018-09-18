@@ -2,37 +2,11 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import TodoMain from "./TodoMain";
 import AddToDo from './AddToDo.js';
-import styled, {injectGlobal} from "styled-components";
+import styled from "styled-components";
 import TodoModel from './TodoModel.js';
 import mockTodoList from './mockTodoList';
 
-const GlobalStyles = injectGlobal`
-    body {
-     margin: 0; 
-    }
-    button {
-      border: none;
-      background: transparent;
-      :focus {
-        outline: none;
-      }
-    }
-    li {
-      list-style: none;
-    }
-    ul {
-      padding-left: 0;
-      margin: 0;
-    }
-    p {
-      margin: 0;
-    }
-    input {
-      :focus {
-        outline: none;
-      }
-    }
-`
+
 
 const initialState = {
   todos: mockTodoList,
