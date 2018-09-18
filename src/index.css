@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "SFCompactDisplay", "SFCompactText", "sans-serif" ;
  
 }
 
@@ -11,7 +11,7 @@ body {
   font-style: normal;
   font-weight: 300;
   src: local("SF Compact Text Light"),
-  url("../static/fonts/SFCompactText/SFCompactText-Light.otf") format("opentype");
+  url("./assets/fonts/SFCompactText/SFCompactText-Light.otf") format("opentype");
 }
 
 @font-face {
@@ -19,7 +19,7 @@ body {
   font-style: normal;
   font-weight: 400;
   src: local("SF Compact Text Regular"),
-  url("../static/fonts/SFCompactText/SFCompactText-Regular.otf") format("opentype");
+  url("./assets/fonts/SFCompactText/SFCompactText-Regular.otf") format("opentype");
 }
 
 @font-face {
@@ -27,7 +27,7 @@ body {
   font-style: normal;
   font-weight: 500;
   src: local("SF Compact Text Medium"),
-  url("../static/fonts/SFCompactText/SFCompactText-Medium.otf") format("opentype");
+  url("./assets/fonts/SFCompactText/SFCompactText-Medium.otf") format("opentype");
 }
 
 @font-face {
@@ -35,7 +35,7 @@ body {
   font-style: normal;
   font-weight: 600;
   src: local("SF Compact Text Semibold"),
-  url("../static/fonts/SFCompactText/SFCompactText-Semibold.otf") format("opentype");
+  url("./assets/fonts/SFCompactText/SFCompactText-Semibold.otf") format("opentype");
 }
 
 @font-face {
@@ -43,7 +43,7 @@ body {
   font-style: normal;
   font-weight: 700;
   src: local("SF Compact Text Bold"),
-  url("../static/fonts/SFCompactText/SFCompactText-Bold.otf") format("opentype");
+  url("./assets/fonts/SFCompactText/SFCompactText-Bold.otf") format("opentype");
 }
 
 @font-face {
@@ -51,7 +51,7 @@ body {
   font-style: normal;
   font-weight: 900;
   src: local("SF Compact Text Heavy"),
-  url("../static/fonts/SFCompactText/SFCompactText-Heavy.otf") format("opentype");
+  url("./assets/fonts/SFCompactText/SFCompactText-Heavy.otf") format("opentype");
 }
 
 @font-face {
@@ -59,7 +59,7 @@ body {
   font-style: normal;
   font-weight: 300;
   src: local("SF Compact Display Light"),
-  url("../static/fonts/SFCompactDisplay/SFCompactDisplay-Light.otf") format("opentype");
+  url("./assets/fonts/SFCompactDisplay/SFCompactDisplay-Light.otf") format("opentype");
 }
 
 @font-face {
@@ -67,7 +67,7 @@ body {
   font-style: normal;
   font-weight: 400;
   src: local("SF Compact Display Regular"),
-  url("../static/fonts/SFCompactDisplay/SFCompactDisplay-Regular.otf") format("opentype");
+  url("./assets/fonts/SFCompactDisplay/SFCompactDisplay-Regular.otf") format("opentype");
 }
 
 @font-face {
@@ -75,7 +75,7 @@ body {
   font-style: normal;
   font-weight: 500;
   src: local("SF Compact Display Medium"),
-  url("../static/fonts/SFCompactDisplay/SFCompactDisplay-Medium.otf") format("opentype");
+  url("./assets/fonts/SFCompactDisplay/SFCompactDisplay-Medium.otf") format("opentype");
 }
 
 @font-face {
@@ -83,7 +83,7 @@ body {
   font-style: normal;
   font-weight: 600;
   src: local("SF Compact Display Semibold"),
-  url("../static/fonts/SFCompactDisplay/SFCompactDisplay-Semibold.otf") format("opentype");
+  url("./assets/fonts/SFCompactDisplay/SFCompactDisplay-Semibold.otf") format("opentype");
 }
 
 @font-face {
@@ -91,7 +91,7 @@ body {
   font-style: normal;
   font-weight: 700;
   src: local("SF Compact Display Bold"),
-  url("../static/fonts/SFCompactDisplay/SFCompactDisplay-Bold.otf") format("opentype");
+  url("./assets/fonts/SFCompactDisplay/SFCompactDisplay-Bold.otf") format("opentype");
 }
 
 @font-face {
@@ -99,5 +99,5 @@ body {
   font-style: normal;
   font-weight: 900;
   src: local("SF Compact Display Heavy"),
-  url("../static/fonts/SFCompactDisplay/SFCompactDisplay-Heavy.otf") format("opentype");
+  url("./assets/fonts/SFCompactDisplay/SFCompactDisplay-Heavy.otf") format("opentype");
 }
