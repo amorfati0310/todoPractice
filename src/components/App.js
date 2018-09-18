@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import TodoMain from "./TodoMain";
-import AddToDo from './AddToDo/AddToDo.js';
+import AddToDo from './AddToDo.js';
 import styled, {injectGlobal} from "styled-components";
-import TodoModel from './TodoModel/TodoModle.js';
+import TodoModel from './TodoModel.js';
 import mockTodoList from './mockTodoList';
 
 const GlobalStyles = injectGlobal`
@@ -79,7 +79,7 @@ class App extends Component {
   }
   uppdateText = (id, todoText)=>{
     const {todos} = this.state
-    const updateTodo = todos.find(todo=>todo.id===id)
+    const updateTodo = todos.find(({id})=>id===id)
     updateTodo.updateTodoText(todoText)
     this.setState({
       todos,
@@ -104,7 +104,7 @@ class App extends Component {
   }
 
   render() {
-    const {filterKey, todos, filterKeyList} = this.state
+    const { todos } = this.state
     return (
     
     <BrowserRouter>

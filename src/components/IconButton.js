@@ -3,16 +3,6 @@ import styled, {css} from "styled-components";
 
 const defaultSize = 50
 
-
-
-// question 
-// const IconButtonEl = styled.button`
-//   width: ${({width}) => width ? width: defaultWidth};
-//   height: ${({height}) => height ? height:defaultWidth};
-//    width: ${({width=defulatWidth}) => width ? width: defaultWidth};
-//   height: ${({height}) => height ? height:defaultWidth};
-// `
-
 const IconButtonEl = styled.button` 
   width: ${props => props.size+'px'};
   height: ${props => props.size+'px'};
@@ -65,10 +55,6 @@ const FloatButton = ({iconSrc, onClick, size=defaultSize}) => {
     </FloatButtonEl>
   );
 };
-
-// IconButton.defulatProps = {
-//   size: 50,
-// }
 
 export {
   IconButton,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 
-const searchIcon = require('../../assets/images/search-icon.svg')
+const searchIcon = require('../assets/images/search-icon.svg')
 
 const FormWrapper = styled.form `
    position: relative;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 
-const backgroundImg = require('../../assets/images/header-bg.jpg')
+const backgroundImg = require('../assets/images/header-bg.jpg')
 
 const Wrapper = styled.div`
  position: relative;

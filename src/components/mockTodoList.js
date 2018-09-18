@@ -1,4 +1,4 @@
-import TodoModel from './TodoModel/TodoModle'; 
+import TodoModel from './TodoModel.js'; 
  
 const first = new TodoModel('티티 간식 주기');
 const second = new TodoModel('티티 털 벗겨주기');

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Header from './Header/Header.js';
-import FilterBar from './FilterBar/FilterBar.js';
-import SearchForm from './SearchForm/SearchForm.js';
-import TodoListItem from './TodoListItem/TodoListItem'
-import {FloatButton} from './IconButton/IconButton.js';
+import Header from './Header';
+import FilterBar from './FilterBar.js';
+import SearchForm from './SearchForm.js';
+import TodoListItem from './TodoListItem'
+import {FloatButton} from './IconButton.js';
 
 
 import styled from "styled-components";
@@ -28,7 +28,6 @@ const TodoListWrapper = styled.ul`
 
 class TodoMain extends Component {
   state = {
-    isEdit: false,
     searchText: '',
     filterKey: 'ALL',
   }
@@ -64,8 +63,8 @@ class TodoMain extends Component {
   }
 
   render() {
-    const {filterList, isEdit, searchText, filterKey} = this.state; 
-    const {FBonClick,filterKeyList, deleteToDo, todos, updateCompleted, updateText, toggleSortTodoList} = this.props;
+    const { searchText, filterKey} = this.state; 
+    const {filterKeyList, deleteToDo, todos, updateCompleted, updateText, toggleSortTodoList} = this.props;
     const filteredTodo = this.getFilterList(todos,filterKey, searchText)
     return (
       <div className="App">

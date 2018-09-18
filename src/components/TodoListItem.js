@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled, {css} from "styled-components";
-import {IconButton} from '../IconButton/IconButton.js';
+import {IconButton} from './IconButton.js';
 
-const checkIcon = require('../../assets/images/checked.svg')
-const transhIconGray = require('../../assets/images/complete-remove.png')
-const trashIconPink = require('../../assets/images/remove.png') 
+const checkIcon = require('../assets/images/checked.svg')
+const transhIconGray = require('../assets/images/complete-remove.png')
+const trashIconPink = require('../assets/images/remove.png') 
 
 
 const TodoListItemEl = styled.li`
@@ -79,15 +79,12 @@ class TodoListItem extends Component {
   state = {
     isEdit: false,
     todoText: this.props.todoText,
-    
   }
   editItem = ()=> {
     this.setState({isEdit: true})
   }
-  updateTodoText = (e)=> {
-    this.setState({
-      todoText: e.target.value
-    })
+  updateTodoText = ({target:{value}})=> {
+    this.setState({todoText: value})
   }
   handleEditSubmit = (e)=> {
     if(e.key==="Enter") return this.notifyUpdateText(); 
@@ -101,7 +98,7 @@ class TodoListItem extends Component {
     })
   }
   render() {
-    const {todoText, id, completed, timeline, deleteToDo, updateCompleted, name, updateText} = this.props;
+    const {todoText, id, completed, timeline, deleteToDo, updateCompleted, name } = this.props;
     const completeIcon = completed ? checkIcon : ''
     const removeIcon = completed ? trashIconPink : transhIconGray
     return (

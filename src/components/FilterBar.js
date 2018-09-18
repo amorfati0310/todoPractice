@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
-import { IconButton } from '../IconButton/IconButton';
-const arrowUpDown = require('../../assets/images/up-down.svg')
+import { IconButton } from './IconButton';
+const arrowUpDown = require('../assets/images/up-down.svg')
 
 const Wrapper = styled.div`
   display: flex;
