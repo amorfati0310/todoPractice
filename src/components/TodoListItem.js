@@ -105,7 +105,6 @@ class TodoListItem extends Component {
       <TodoListItemEl
         id={id}
         name={name}
-        onDoubleClick={this.editItem}
       >
         <ContentWrapper>
           <IconButton
@@ -116,9 +115,12 @@ class TodoListItem extends Component {
             circle={true}
             size={checkButtonSize}
           />
-            <TextWrapper>
+            <TextWrapper >
               <TodoItemInputWrapper>
-                <TodoText completed={completed}>{todoText}</TodoText>
+                <TodoText
+                  onDoubleClick={this.editItem} 
+                  completed={completed}>{todoText}
+                </TodoText>
                 {this.state.isEdit&&
                 <DBClickInput 
                   autoFocus={true} 

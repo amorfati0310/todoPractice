@@ -2,20 +2,25 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import TodoMain from "./TodoMain";
 import AddToDo from './AddToDo.js';
-
+import { getLocalStorage, setLocalStorage, toggleCompleteTodo, updateTodoText } from '../helper/helper.js'
 import TodoModel from './TodoModel.js';
-import mockTodoList from './mockTodoList';
-
 
 
 const initialState = {
-  todos: mockTodoList,
+  todos: [],
   isAscending:  true,
 }
 
+const LOCAL_TODO = 'LOCAL_TODO'
 class App extends Component {
   state = initialState
-
+  componentDidMount = () => {
+    //fetch
+    const localTodo = getLocalStorage(LOCAL_TODO) || [];
+    this.setState({
+      todos: localTodo
+    })
+  };
   handleSubmit = (e,goToMain) => {
     e.preventDefault(); 
     const input = e.target.elements.addInput
@@ -25,11 +30,12 @@ class App extends Component {
   };
   addToDo = (todoText, goToMain)=>{
     const newTodo = new TodoModel(todoText)
+    const newTodos = this.state.todos.concat(newTodo)
     this.setState({
-      todos:this.state.todos.concat(newTodo)
+      todos:newTodos
     })
+    setLocalStorage(LOCAL_TODO, newTodos)
     goToMain();
-   
   }
   getTodoId(el){
     return el.closest(`[name=TodoItem]`).id
@@ -41,23 +47,26 @@ class App extends Component {
     this.setState({
       todos: othersTodo,
     })
+    setLocalStorage(LOCAL_TODO, othersTodo)
   }
   updateCompleted = ({target})=>{
     const todoId = this.getTodoId(target)
     const {todos} = this.state
     const updateOne = todos.find(({id})=>id===todoId)
-    updateOne.toggleComplete()
+    toggleCompleteTodo(updateOne)
     this.setState({
       todos,
     })
+    setLocalStorage(LOCAL_TODO, todos)
   }
   uppdateText = (todoId, todoText)=>{
     const todos = [...this.state.todos]
     const updateTodo = todos.find(({id})=>id===todoId)
-    updateTodo.updateTodoText(todoText)
+    updateTodoText(updateTodo, todoText)
     this.setState({
       todos,
     })
+    setLocalStorage(LOCAL_TODO, todos)
   }
   goToMain(){
     this.addToDoCo.props.history.push('/')
