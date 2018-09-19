@@ -42,19 +42,20 @@ class TodoMain extends Component {
   static defaultProps = {
     filterKeyList: ['ALL','TODO','DONE'],
   }
+  goToAddPage = ()=>{
+    this.props.history.push(`/add`);
+  }
   getFilterList = (todoList, filterKey, searchText)=>{
     const filterList = {
       'ALL': todoList=>todoList,
       'TODO': todoList=>todoList.filter(todo=>!todo.completed),
       'DONE': todoList=>todoList.filter(todo=>todo.completed),
     }
-    const filterBarKeyAdapted =filterList[filterKey](todoList)
+    const filterBarKeyAdapted = filterList[filterKey](todoList)
     if(searchText) return filterBarKeyAdapted.filter(({todoText})=>todoText.includes(searchText))
     else return filterBarKeyAdapted
   }
-  goToAddPage = ()=>{
-    this.props.history.push(`/add`);
-  }
+  
   getSearchText = (searchText)=>{
     this.setState({
       searchText

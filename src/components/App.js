@@ -15,7 +15,7 @@ const LOCAL_TODO = 'LOCAL_TODO'
 class App extends Component {
   state = initialState
   componentDidMount = () => {
-    //fetch
+    //fetch ???
     const localTodo = getLocalStorage(LOCAL_TODO) || [];
     this.setState({
       todos: localTodo
@@ -37,21 +37,16 @@ class App extends Component {
     setLocalStorage(LOCAL_TODO, newTodos)
     goToMain();
   }
-  getTodoId(el){
-    return el.closest(`[name=TodoItem]`).id
-  }
-  deleteToDo = ({target})=>{
-    const todoId = this.getTodoId(target)
-    const {todos} = this.state;
-    const othersTodo = todos.filter(({id})=>id!==todoId)
+  deleteToDo = (todoId)=>{
+    const todos = [...this.state.todos]
+    const restTodo = todos.filter(({id})=>id!==todoId)
     this.setState({
-      todos: othersTodo,
+      todos: restTodo,
     })
-    setLocalStorage(LOCAL_TODO, othersTodo)
+    setLocalStorage(LOCAL_TODO, restTodo)
   }
-  updateCompleted = ({target})=>{
-    const todoId = this.getTodoId(target)
-    const {todos} = this.state
+  updateCompleted = (todoId)=>{
+    const todos = [...this.state.todos]
     const updateOne = todos.find(({id})=>id===todoId)
     toggleCompleteTodo(updateOne)
     this.setState({

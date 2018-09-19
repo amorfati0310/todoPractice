@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import styled, {css} from "styled-components";
 import {IconButton} from './IconButton.js';
 
-const checkIcon = require('../assets/images/checked.svg')
-const transhIconGray = require('../assets/images/complete-remove.png')
-const trashIconPink = require('../assets/images/remove.png') 
+import checkIcon  from '../assets/images/checked.svg';
+import transhIconGray from '../assets/images/complete-remove.png';
+import trashIconPink from '../assets/images/remove.png';
 
 
 const TodoListItemEl = styled.li`
@@ -86,11 +86,11 @@ class TodoListItem extends Component {
   updateTodoText = ({target:{value}})=> {
     this.setState({todoText: value})
   }
-  handleEditSubmit = (e)=> {
-    if(e.key==="Enter") return this.notifyUpdateText(); 
+  handleEditSubmit = ({key})=> {
+    if(key==="Enter") return this.notifyUpdateText(); 
   }
   notifyUpdateText = ()=> {
-    const {id, updateText} = this.props
+    const {id, updateText} = this.props;
     const {todoText} = this.state;
     updateText(id,todoText)
     this.setState({
@@ -98,7 +98,7 @@ class TodoListItem extends Component {
     })
   }
   render() {
-    const {todoText, id, completed, timeline, deleteToDo, updateCompleted, name } = this.props;
+    const {todoText, id, completed, timeline, deleteToDo, updateCompleted, name, updateText } = this.props;
     const completeIcon = completed ? checkIcon : ''
     const removeIcon = completed ? trashIconPink : transhIconGray
     return (
@@ -108,7 +108,7 @@ class TodoListItem extends Component {
       >
         <ContentWrapper>
           <IconButton
-            onClick={updateCompleted}
+            onClick={()=>updateCompleted(id)}
             completed={completed}
             background={checkButtonBackground}
             iconSrc={completeIcon}
@@ -127,7 +127,7 @@ class TodoListItem extends Component {
                   type="text"
                   value={this.state.todoText}
                   onChange={this.updateTodoText}
-                  onBlur={()=>this.notifyUpdateText()}
+                  onBlur={this.notifyUpdateText}
                   onKeyPress={(e)=>this.handleEditSubmit(e)}
                 />
                 }
@@ -136,7 +136,7 @@ class TodoListItem extends Component {
             </TextWrapper>
         </ContentWrapper>
         <IconButton
-          onClick={deleteToDo}
+          onClick={()=>deleteToDo(id)}
           iconSrc={removeIcon}
           size={checkButtonSize}
         />
