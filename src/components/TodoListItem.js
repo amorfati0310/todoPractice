@@ -98,7 +98,7 @@ class TodoListItem extends Component {
     })
   }
   render() {
-    const {todoText, id, completed, timeline, deleteToDo, updateCompleted, name, updateText } = this.props;
+    const {todoText, id, completed, timeline, deleteToDo, updateCompleted, name } = this.props;
     const completeIcon = completed ? checkIcon : ''
     const removeIcon = completed ? trashIconPink : transhIconGray
     return (

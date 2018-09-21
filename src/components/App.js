@@ -11,6 +11,8 @@ const initialState = {
   isAscending:  true,
 }
 
+
+
 const LOCAL_TODO = 'LOCAL_TODO'
 class App extends Component {
   state = initialState
@@ -21,6 +23,9 @@ class App extends Component {
       todos: localTodo
     })
   };
+  componentDidUpdate = () => {
+    setLocalStorage(LOCAL_TODO, [...this.state.todos])
+  }
   handleSubmit = (e,goToMain) => {
     e.preventDefault(); 
     const input = e.target.elements.addInput
@@ -34,7 +39,6 @@ class App extends Component {
     this.setState({
       todos:newTodos
     })
-    setLocalStorage(LOCAL_TODO, newTodos)
     goToMain();
   }
   deleteToDo = (todoId)=>{
@@ -43,7 +47,6 @@ class App extends Component {
     this.setState({
       todos: restTodo,
     })
-    setLocalStorage(LOCAL_TODO, restTodo)
   }
   updateCompleted = (todoId)=>{
     const todos = [...this.state.todos]
@@ -52,7 +55,6 @@ class App extends Component {
     this.setState({
       todos,
     })
-    setLocalStorage(LOCAL_TODO, todos)
   }
   uppdateText = (todoId, todoText)=>{
     const todos = [...this.state.todos]
@@ -61,7 +63,6 @@ class App extends Component {
     this.setState({
       todos,
     })
-    setLocalStorage(LOCAL_TODO, todos)
   }
   goToMain(){
     this.addToDoCo.props.history.push('/')
