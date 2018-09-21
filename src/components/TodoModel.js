@@ -5,9 +5,14 @@ class TodoModel  {
     this.todoText = todoText;
     this.completed = false;
     this.date = new Date();
-    this.timeline = '2018-09-09 18:00 ~ 2018-09-09 19:00'
-    this.startTime = new Date();
+    this.startTime = this.convertDateFormat(new Date())
+    this.timeline = `${this.startTime}~${this.endTime||this.startTime}`
     this.endTime = null;
+  }
+  convertDateFormat(date){
+    let dateString = date.toISOString().split('T')[0]
+    let timeString =date.toTimeString().split(' ')[0]
+    return `${dateString} ${timeString}`
   }
   updateTodoText(todoText){
     this.todoText = todoText;
